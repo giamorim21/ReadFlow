@@ -1,6 +1,7 @@
 # backend/app/main.py
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI # type: ignore
+from fastapi.middleware.cors import CORSMiddleware # type: ignore
+from database.database import get_connection
 
 app = FastAPI()
 
@@ -12,6 +13,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+def startup_event():
+    conn = get_connection()
+    if conn:
+        print("✅ Conexão com o banco de dados estabelecida com sucesso!")
+        conn.close()
+    else:
+        print("❌ Falha na conexão com o banco de dados.")
+
 @app.get("/")
-def read_root():
-    return {"message": "API funcionando na porta 3001!"}
+def root():
+    return {"message": "ReadFlow rodando com FastAPI + MySQL"}
+
+
+

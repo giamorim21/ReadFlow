@@ -39,7 +39,14 @@ Instale as seguintes extensões no VS Code para uma melhor experiência:
 readflow/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py
+│   │   └── main.py
+│   ├── controllers/
+│   │   └── ...
+│   ├── database/
+│   │   ├── database.py
+│   │   ├── init_db.py
+│   │   └── schema.sql
+│   ├── models/
 │   │   └── ...
 │   ├── requirements.txt
 │   └── venv/
@@ -94,15 +101,46 @@ Esse script vai:
 
 ## 🛢️ Banco de Dados MySQL
 
-Antes de rodar, certifique-se que o MySQL está rodando localmente e que você criou o banco de dados com o script SQL incluído no projeto (`backend/sql/init.sql`).
+### 1. Variáveis de ambiente
+
+Crie um arquivo .env dentro da pasta backend/ com o seguinte conteúdo:
 
 Você pode rodar o script com:
 
 ```bash
-mysql -u root -p < backend/sql/init.sql
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=seu_usuario
+MYSQL_PASSWORD=sua_senha
+MYSQL_DATABASE=readflow
 ```
 
-> ⚠️ Substitua `root` pelo usuário do seu MySQL, se for diferente.
+> ⚠️ Substitua os valores de acordo com sua configuração local.
+
+### 2. Criar o banco de dados a partir do schema
+
+Certifique-se de que o MySQL está rodando e execute:
+
+```bash
+cd backend
+venv\Scripts\activate
+python create_db.py
+```
+Esse comando:
+
+Conecta ao banco usando as variáveis do .env
+
+Cria o banco de dados readflow (caso não exista)
+
+Executa o script schema.sql para criar as tabelas
+
+### 3. Rodar o backend sem recriar o banco
+
+```bash
+cd backend
+venv\Scripts\activate
+uvicorn app.main:app --reload
+```
 
 ---
 
