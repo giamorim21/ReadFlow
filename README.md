@@ -164,7 +164,7 @@ Certifique-se de que os arquivos `.env`, `venv/`, `node_modules/`, e `build/` es
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/readflow.git
+   https://github.com/giamorim21/ReadFlow.git
    cd readflow
    ```
 
