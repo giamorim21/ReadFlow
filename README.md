@@ -73,7 +73,7 @@ Em outro terminal:
 
 ```bash
 cd frontend
-npm install
+npm install axios
 ```
 
 ### 🔁 3. Iniciar tudo com um só comando
@@ -81,7 +81,7 @@ npm install
 Volte para a pasta raiz e execute:
 
 ```bash
-start.bat
+.\start.bat
 ```
 
 Esse script vai:
