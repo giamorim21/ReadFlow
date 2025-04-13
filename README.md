@@ -159,13 +159,3 @@ Depois de rodar o projeto:
 Certifique-se de que os arquivos `.env`, `venv/`, `node_modules/`, e `build/` estão no `.gitignore`.
 
 ---
-
-## 👥 Para os colegas que forem clonar o projeto
-
-1. Clone o repositório:
-   ```bash
-   https://github.com/giamorim21/ReadFlow.git
-   cd readflow
-   ```
-
-2. Siga os passos da seção **"Como rodar o projeto"** acima.
