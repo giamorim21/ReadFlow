@@ -36,24 +36,47 @@ Antes de começar, certifique-se de ter os seguintes softwares instalados:
 readflow/
 ├── backend/
 │   ├── app/
-│   │   └── main.py
 │   ├── controllers/
-│   │   └── ...
 │   ├── database/
+│   │   ├── __pycache__/
 │   │   ├── database.py
 │   │   ├── init_db.py
 │   │   └── schema.sql
 │   ├── models/
-│   │   └── ...
-│   ├── requirements.txt
-│   └── venv/
+│   ├── services/
+│   │   ├── autenticacao.py
+│   │   ├── criptografia.py
+│   │   └── recomedador...
+│   ├── utils/
+│   ├── venv/
+│   ├── create_db.py
+│   └── requirements.txt
 ├── frontend/
-│   ├── src/
-│   │   └── ...
-│   ├── package.json
-│   └── node_modules/
-├── start.bat
-└── README.md
+│   ├── node_modules/
+│   ├── public/
+│   │   ├── index.html
+│   │   └── manifest.json
+│   └── src/
+│       ├── assets/
+│       ├── components/
+│       │   ├── Footer.js
+│       │   └── Header.js
+│       ├── pages/
+│       │   └── Home.js
+│       ├── routes/
+│       │   └── AppRoutes.js
+│       ├── App.css
+│       ├── App.js
+│       ├── index.css
+│       ├── index.js
+│       ├── reportWebVitals.js
+│       ├── package-lock.json
+│       └── package.json
+├── .env
+├── .gitignore
+├── README.md
+└── start.bat
+
 ```
 
 ---
