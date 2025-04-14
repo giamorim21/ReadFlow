@@ -46,7 +46,7 @@ readflow/
 │   ├── services/
 │   │   ├── autenticacao.py
 │   │   ├── criptografia.py
-│   │   └── recomedador...
+│   │   └── recomedador_ml.py
 │   ├── utils/
 │   ├── venv/
 │   ├── create_db.py
@@ -98,7 +98,7 @@ pip install -r requirements.txt
 
 ```bash
 cd frontend
-npm install axios
+npm install axios react-router-dom
 ```
 
 ---
@@ -124,11 +124,11 @@ npm install axios
 Crie um arquivo `.env` dentro da pasta `backend/` com o seguinte conteúdo:
 
 ```env
-MYSQL_HOST=localhost
-MYSQL_PORT=3306
-MYSQL_USER=seu_usuario
-MYSQL_PASSWORD=sua_senha
-MYSQL_DATABASE=readflow
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=readflow
 ```
 
 ⚠️ **Substitua os valores de acordo com sua configuração local.**
