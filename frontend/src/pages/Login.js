@@ -13,6 +13,7 @@ const Login = () => {
     navigate('/'); // Redireciona para a página principal do sistema
   };
 
+  
   return (
     <div>
       <h2>Login</h2>
