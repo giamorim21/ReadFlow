@@ -1,42 +1,45 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Para navegação entre páginas
+import React, { useState } from "react";
+import logo from "../assets/icon.PNG";
+import "../App.css";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const navigate = useNavigate();
+function Login() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Aqui você pode fazer a requisição para o back-end para verificar as credenciais
-    // Se o login for bem-sucedido:
-    navigate('/'); // Redireciona para a página principal do sistema
+    console.log("Email:", email);
+    console.log("Senha:", senha);
   };
 
-  
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Senha" 
-          value={senha} 
-          onChange={(e) => setSenha(e.target.value)} 
-        />
-        <button type="submit">Entrar</button>
-      </form>
-      <p>
-        Não tem conta? <a href="/cadastro">Cadastre-se</a>
-      </p>
+    <div className="page-container">
+      <img src={logo} alt="Logo" className="logo-outside" />
+      <div className="login-container">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin} className="login-form">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
+          <button type="submit">Entrar</button>
+        </form>
+        <p className="signup-text">
+          Não tem conta? <a href="/cadastro">Cadastre-se</a>
+        </p>
+      </div>
     </div>
   );
-};
+}
 
 export default Login;

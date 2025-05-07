@@ -1,21 +1,14 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 // Componentes e páginas
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from './pages/Login';
+import Cadastro from './pages/Cadastro';
+
 
 function AppContent() {
-  const [msg, setMsg] = useState("");
   const location = useLocation();
-
-  useEffect(() => {
-    axios.get("http://localhost:8000/").then((res) => {
-      setMsg(res.data.message);
-    });
-  }, []);
 
   const hideHeaderRoutes = ["/login", "/cadastro", "/resetar-senha"];
   const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
@@ -27,12 +20,12 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
         </Routes>
       </div>
     </>
   );
 }
-
 
 function App() {
   return (
