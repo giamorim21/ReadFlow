@@ -8,7 +8,6 @@ const AppRoutes = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* você pode adicionar outras páginas aqui depois */}
       </Routes>
     </Router>
   );

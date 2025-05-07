@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Componentes e páginas
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Login from './pages/Login';
 
-function App() {
+function AppContent() {
   const [msg, setMsg] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
     axios.get("http://localhost:8000/").then((res) => {
@@ -15,16 +17,26 @@ function App() {
     });
   }, []);
 
+  const hideHeaderRoutes = ["/login", "/cadastro", "/resetar-senha"];
+  const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
+
   return (
-    <Router>
-      <Header />
+    <>
+      {!shouldHideHeader && <Header />}
       <div className="p-6">
-        <h1 className="text-xl font-semibold mb-4">{msg}</h1>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Adicione mais rotas aqui depois */}
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
