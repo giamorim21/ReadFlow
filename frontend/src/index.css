@@ -1,9 +1,17 @@
-body {
+/* Reseta margens e paddings de todos os elementos */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Configurações globais */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;  /* Fonte global */
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

@@ -1,47 +1,81 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #000;
+/* Estilos para a página de login e cadastro */
+.login-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
-.page-container {
+/* Lado esquerdo (formulário) */
+.left-panel {
+  flex: 1;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.6)
+  ),
+  url("./assets/biblioteca.avif");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
 }
 
-.logo-outside {
-  width: 200px;  /* Ajuste aqui o valor para o tamanho desejado */
+.logo {
+  width: 300px;
   margin-bottom: 1.5rem;
 }
 
+.system-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.system-description {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  max-width: 600px;
+  line-height: 1.6;
+  color: #e0d0f5;
+}
+
+/* Lado direito (imagem com sombra) */
+.right-panel {
+  flex: 1;
+  background-color: #251a0b;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Container de login e cadastro com transparência */
 .login-container {
-  background-color: white;
+  background-color: rgba(55, 13, 79, 0.634);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   width: 100%;
   max-width: 400px;
   text-align: center;
+  color: #fff;
 }
 
+/* Título do login/cadastro */
 .login-container h2 {
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #fff;
 }
 
+/* Formulário de login/cadastro */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -56,16 +90,23 @@ body {
   font-size: 1rem;
   outline: none;
   transition: border 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+.login-form input::placeholder {
+  color: #666;
 }
 
 .login-form input:focus {
   border-color: #2575fc;
 }
 
+/* Botão de login/cadastro */
 .login-form button {
   width: 100%;
   padding: 0.8rem;
-  background-color: #4CAF50;
+  background-color: #734590;
   color: white;
   border: none;
   border-radius: 8px;
@@ -75,15 +116,25 @@ body {
 }
 
 .login-form button:hover {
-  background-color: #45a049;
+  background-color: #9335b0;
 }
 
+/* Texto de cadastro */
 .signup-text {
   margin-top: 1rem;
   font-size: 0.9rem;
+  color: #fff;
 }
 
 .signup-text a {
-  color: #2575fc;
+  color: #e09aea;
   text-decoration: none;
+}
+
+/* Caixa de apresentação (se houver) */
+.presentation-box {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 700px;
 }
