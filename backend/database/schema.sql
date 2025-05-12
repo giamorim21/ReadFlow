@@ -1,99 +1,101 @@
 CREATE TABLE Usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    senha VARCHAR(255)
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Livro (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(255),
-    autor VARCHAR(255),
-    genero VARCHAR(100),
-    avaliacaoMedia FLOAT
+    titulo VARCHAR(255) NOT NULL,
+    autor VARCHAR(255) NOT NULL,
+    genero VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Recomendacao (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
+    usuario_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
 );
 
 CREATE TABLE RecomendacaoDetalhada (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    recomendacao_id INT,
-    livro_id INT,
-    motivo TEXT,
+    recomendacao_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    motivo TEXT NOT NULL,
     FOREIGN KEY (recomendacao_id) REFERENCES Recomendacao(id),
     FOREIGN KEY (livro_id) REFERENCES Livro(id)
 );
 
 CREATE TABLE LogRecomendacao (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
-    dataHora TIMESTAMP,
-    livros_recomendados TEXT, -- JSON ou CSV
+    usuario_id INT NOT NULL,
+    dataHora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+);
+
+CREATE TABLE LogRecomendacao_Livro (
+    log_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    PRIMARY KEY (log_id, livro_id),
+    FOREIGN KEY (log_id) REFERENCES LogRecomendacao(id),
+    FOREIGN KEY (livro_id) REFERENCES Livro(id)
 );
 
 CREATE TABLE Avaliacao (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
-    livro_id INT,
-    nota INT CHECK (nota BETWEEN 0 AND 10),
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    nota INT NOT NULL CHECK (nota BETWEEN 0 AND 10),
     comentario TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
     FOREIGN KEY (livro_id) REFERENCES Livro(id)
 );
 
 CREATE TABLE BibliotecaPessoal (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
-    livro_id INT,
-    status VARCHAR(20), -- "lido", "lendo", "para ler"
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('lido', 'lendo', 'para ler')),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
     FOREIGN KEY (livro_id) REFERENCES Livro(id)
 );
 
-CREATE TABLE Administrador (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255),
-    email VARCHAR(255) UNIQUE
-);
-
 CREATE TABLE APIExterna (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255)
+    nome VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE API_Livro (
-    api_id INT,
-    livro_id INT,
+    api_id INT NOT NULL,
+    livro_id INT NOT NULL,
     PRIMARY KEY (api_id, livro_id),
     FOREIGN KEY (api_id) REFERENCES APIExterna(id),
     FOREIGN KEY (livro_id) REFERENCES Livro(id)
 );
 
-CREATE TABLE Administrador_APIExterna (
-    administrador_id INT,
-    api_id INT,
-    PRIMARY KEY (administrador_id, api_id),
-    FOREIGN KEY (administrador_id) REFERENCES Administrador(id),
+CREATE TABLE Usuario_APIExterna (
+    usuario_id INT NOT NULL,
+    api_id INT NOT NULL,
+    PRIMARY KEY (usuario_id, api_id),
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
     FOREIGN KEY (api_id) REFERENCES APIExterna(id)
 );
 
-CREATE TABLE Administrador_Usuario (
-    administrador_id INT,
-    usuario_id INT,
-    PRIMARY KEY (administrador_id, usuario_id),
-    FOREIGN KEY (administrador_id) REFERENCES Administrador(id),
-    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
-);
-
-CREATE TABLE Administrador_Recomendacao (
-    administrador_id INT,
-    recomendacao_id INT,
-    PRIMARY KEY (administrador_id, recomendacao_id),
-    FOREIGN KEY (administrador_id) REFERENCES Administrador(id),
+CREATE TABLE Usuario_Recomendacao (
+    usuario_id INT NOT NULL,
+    recomendacao_id INT NOT NULL,
+    PRIMARY KEY (usuario_id, recomendacao_id),
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id),
     FOREIGN KEY (recomendacao_id) REFERENCES Recomendacao(id)
 );
