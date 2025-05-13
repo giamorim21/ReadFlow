@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import logo from "../assets/icon.PNG";
+import { useState } from "react";
+import logo from "../assets/icon.png";
 import "../App.css";
 
 function Login() {

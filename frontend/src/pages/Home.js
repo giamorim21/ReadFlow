@@ -1,11 +1,12 @@
+import { useState } from "react";
+
 const Home = () => {
-    return (
-      <div className="p-8 text-center">
-        <h2 className="text-3xl font-bold mb-4">Bem-vinda ao ReadFlow</h2>
-        <p className="text-gray-700">Descubra livros incríveis com inteligência artificial! 🚀📖</p>
-      </div>
-    );
-  };
-  
-  export default Home;
-  
+  return (
+    <div>
+      <h1>Bem-vindo ao ReadFlow</h1>
+      <p>Explore livros, receba recomendações e gerencie sua biblioteca pessoal.</p>
+    </div>
+  );
+};
+
+export default Home;

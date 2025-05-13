@@ -1,15 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from '../components/Header';
-import Home from '../pages/Home';
+import { Routes, Route } from "react-router-dom";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Cadastro from "../pages/Cadastro";
+import Biblioteca from "../pages/Biblioteca";
+import Recomendacoes from "../pages/Recomendacao";
+import Configuracoes from "../pages/Configuracao";
 
 const AppRoutes = () => {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/cadastro" element={<Cadastro />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/biblioteca" element={<Biblioteca />} />
+      <Route path="/recomendacoes" element={<Recomendacoes />} />
+      <Route path="/configuracoes" element={<Configuracoes />} />
+    </Routes>
   );
 };
 

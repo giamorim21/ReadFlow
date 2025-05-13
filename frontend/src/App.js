@@ -1,36 +1,29 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-
-// Componentes e páginas
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
 import Header from "./components/Header";
-import Home from "./pages/Home";
-import Login from './pages/Login';
-import Cadastro from './pages/Cadastro';
+import Footer from "./components/Footer";
+import "./App.css";
 
-function AppContent() {
+const Layout = () => {
   const location = useLocation();
-
-  const hideHeaderRoutes = ["/", "/login", "/cadastro", "/resetar-senha"];
-  const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
+  const hideRoutes = ["/", "/login", "/cadastro", "/resetar-senha"];
+  const shouldHideLayout = hideRoutes.includes(location.pathname);
 
   return (
     <>
-      {!shouldHideHeader && <Header />}
+      {!shouldHideLayout && <Header />}
       <div className="p-6">
-        <Routes>
-          <Route path="/" element={<Login />} /> {/* Página inicial = Login */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/home" element={<Home />} /> {/* Rota separada para Home */}
-        </Routes>
+        <AppRoutes />
       </div>
+      {!shouldHideLayout && <Footer />}
     </>
   );
-}
+};
 
 function App() {
   return (
     <Router>
-      <AppContent />
+      <Layout />
     </Router>
   );
 }

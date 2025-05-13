@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from "../assets/icon.PNG";
+import logo from "../assets/icon.png";
 import axios from 'axios';
 
 const Cadastro = () => {
