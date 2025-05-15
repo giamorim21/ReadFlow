@@ -1,0 +1,113 @@
+.home-container {
+  padding: 40px 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+.titulo-estilizado {
+  font-size: 30px;
+  font-weight: 700;
+  color: #251a0b;
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.carrossel-section {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+}
+
+.carrossel-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.livros-wrapper {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  padding: 16px 0;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+.livros-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+.livro-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 24px 20px;
+  min-width: 240px;
+  max-width: 240px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.livro-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.livro-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.livro-card h4 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: #251a0b;
+  font-weight: 600;
+}
+
+.livro-card p {
+  font-size: 15px;
+  color: #666;
+  margin-top: 0;
+  line-height: 1.4;
+}
+
+.seta {
+  background-color: #251a0b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 14px 18px;
+  font-size: 22px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.25s ease;
+}
+
+.seta:hover {
+  background-color: #3b2a15;
+}
+
+.seta.esquerda {
+  left: -24px;
+}
+
+.seta.direita {
+  right: -24px;
+}

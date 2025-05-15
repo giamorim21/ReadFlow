@@ -5,6 +5,7 @@ import Cadastro from "../pages/Cadastro";
 import Biblioteca from "../pages/Biblioteca";
 import Recomendacoes from "../pages/Recomendacao";
 import Configuracoes from "../pages/Configuracao";
+import DetalheLivro from '../pages/DetalheLivro';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
       <Route path="/biblioteca" element={<Biblioteca />} />
       <Route path="/recomendacoes" element={<Recomendacoes />} />
       <Route path="/configuracoes" element={<Configuracoes />} />
+      <Route path="/livro/:id" element={<DetalheLivro />} />
     </Routes>
   );
 };

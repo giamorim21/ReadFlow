@@ -1,0 +1,75 @@
+.detalhe-container {
+  padding: 40px 5%;
+  width: 100vw;          /* largura total da viewport */
+  min-height: 100vh;     /* altura total da viewport */
+  box-sizing: border-box; /* para o padding não ultrapassar a largura */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #251a0b;
+}
+
+.botao-voltar {
+  background-color: #251a0b;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.botao-voltar:hover {
+  background-color: #3b2a15;
+}
+
+.livro-detalhes {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;   /* para ocupar a largura total */
+}
+
+.imagem-livro {
+  width: 320px;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;  /* para não encolher */
+}
+
+.info-livro {
+  flex: 1;
+}
+
+.info-livro h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.info-livro h3 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  color: #5c4a28;
+}
+
+.descricao {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  color: #4b3a0c;
+}
+
+.info-extra {
+  list-style: none;
+  padding: 0;
+  font-size: 17px;
+  color: #3e2f0a;
+}
+
+.info-extra li {
+  margin-bottom: 8px;
+}

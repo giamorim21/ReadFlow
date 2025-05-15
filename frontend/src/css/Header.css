@@ -6,6 +6,7 @@
   padding: 12px 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
+  position: relative;
 }
 
 .logo-container {
@@ -23,7 +24,7 @@
 .logo {
   font-size: 22px;
   color: rgb(251, 251, 251);
-  margin: auto 0; /* centraliza verticalmente no container */
+  margin: auto 0;
 }
 
 .search-bar {
@@ -64,23 +65,67 @@
   padding: 10px;
   border-radius: 8px;
   text-decoration: none;
-  color: #f5f5f5; /* cor clara */
+  color: #f5f5f5;
   display: flex;
   align-items: center;
   transition: background-color 0.2s ease;
 }
 
 .icon:hover {
-  background-color: #3b2a15; /* tom marrom mais escuro para hover */
+  background-color: #3b2a15;
 }
 
 .icon.active {
-  background-color: #3b2a15; /* mesmo fundo, criando efeito de continuidade */ 
+  background-color: #3b2a15;
 }
 
+/* USER ICON - Clique visível com cursor */
 .user-icon {
   background-color: #3b2a15;
   padding: 10px;
   border-radius: 50%;
   color: #f5f5f5;
+  cursor: pointer; /* <<< Adicionado */
+  position: relative;
+}
+
+.user-icon:hover {
+  background-color: #4b351c; /* <<< Hover visual */
+}
+
+.user-menu {
+  position: absolute;
+  top: 80px;
+  right: 24px;
+  background-color: #3b2a15;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 100;
+  min-width: 200px;
+}
+
+.user-email {
+  margin: 0 0 12px;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #5a3e22;
 }
