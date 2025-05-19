@@ -1,9 +1,10 @@
 .detalhe-container {
   padding: 40px 5%;
-  width: 100vw;          /* largura total da viewport */
-  min-height: 100vh;     /* altura total da viewport */
-  box-sizing: border-box; /* para o padding não ultrapassar a largura */
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
   color: #251a0b;
+  background-color: #fdfaf5;
 }
 
 .botao-voltar {
@@ -16,50 +17,43 @@
   cursor: pointer;
   margin-bottom: 32px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.botao-voltar:hover {
-  background-color: #3b2a15;
 }
 
 .livro-detalhes {
   display: flex;
-  gap: 40px;
+  justify-content: space-between;
   align-items: flex-start;
-  width: 100%;   /* para ocupar a largura total */
+  gap: 40px;
+  width: 100%;
+}
+
+.coluna-imagem {
+  width: 300px;
+  flex-shrink: 0;
 }
 
 .imagem-livro {
-  width: 320px;
+  width: 100%;
   height: 440px;
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  flex-shrink: 0;  /* para não encolher */
 }
 
-.info-livro {
+.coluna-detalhes {
   flex: 1;
 }
 
-.info-livro h1 {
+.coluna-detalhes h1 {
   font-size: 36px;
   margin-bottom: 12px;
 }
 
-.info-livro h3 {
+.coluna-detalhes h3 {
   font-size: 22px;
   font-weight: 500;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   color: #5c4a28;
-}
-
-.descricao {
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 28px;
-  color: #4b3a0c;
 }
 
 .info-extra {
@@ -67,8 +61,198 @@
   padding: 0;
   font-size: 17px;
   color: #3e2f0a;
+  margin-bottom: 20px;
 }
 
 .info-extra li {
+  margin-bottom: 6px;
+}
+
+.descricao {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: #4b3a0c;
+}
+
+.coluna-interacoes {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 16px;
+  background-color: #cab06e;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avaliacao-media {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.estrela {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.estrela.cheia {
+  color: #cab06e;
+}
+
+.nota-media {
+  font-size: 18px;
+  font-weight: bold;
+  color: #5e4c2f;
+}
+
+.marcadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.marcador {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #fff7e6;
+  border: 2px solid #ccb27a;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.marcador:hover {
+  background-color: #f1e3c2;
+}
+
+.marcador.ativo {
+  background-color: #ccb27a;
+  color: white;
+}
+
+.icone-bookmark {
+  font-size: 16px;
+}
+
+.avaliacao-usuario p {
   margin-bottom: 8px;
+}
+
+.estrelas-clique {
+  display: flex;
+  gap: 8px;
+}
+
+.estrelas-clique span:hover {
+  transform: scale(1.1);
+}
+
+.ultimas-reviews {
+  margin-top: 60px;
+}
+
+.review {
+  margin-bottom: 24px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.coluna-interacoes {
+  flex: 1;
+  background-color: #d3d3d3;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.marcadores {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.marcador {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.marcador.ativo {
+  background-color: #ada296;
+  color: #1d1b1f;
+}
+
+.icone-bookmark {
+  color: #444;
+}
+
+.avaliacao-usuario p {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.estrelas-clique {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.estrelas-clique .estrela {
+  font-size: 24px;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.estrelas-clique .cheia {
+  color: #cab06e;
+}
+
+.nota-selecionada {
+  font-size: 16px;
+  margin-left: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cabecalho-interacoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.barra-lateral {
+  width: 6px;
+  height: 28px;
+  background-color: #ada296; /* Roxo forte */
+  border-radius: 4px;
+}
+
+.titulo-biblioteca {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4b2e2e; /* Marrom escuro */
 }
