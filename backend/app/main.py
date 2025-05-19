@@ -2,8 +2,11 @@
 from fastapi import FastAPI # type: ignore
 from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from database.database import get_connection
+from controllers import google_books_controller
 
 app = FastAPI()
+
+app.include_router(google_books_controller.router)
 
 # Permitir comunicação com o frontend
 app.add_middleware(
