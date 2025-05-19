@@ -3,7 +3,6 @@
   width: 100vw;          /* largura total da viewport */
   min-height: 100vh;     /* altura total da viewport */
   box-sizing: border-box; /* para o padding não ultrapassar a largura */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #251a0b;
 }
 

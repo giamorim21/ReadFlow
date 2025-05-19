@@ -13,6 +13,11 @@ CREATE TABLE Livro (
     titulo VARCHAR(255) NOT NULL,
     autor VARCHAR(255) NOT NULL,
     genero VARCHAR(100) NOT NULL,
+    sinopse TEXT,
+    ano_lancamento YEAR,
+    quantidade_paginas INT,
+    editora VARCHAR(255),
+    imagem VARCHAR(512), -- URL ou caminho da imagem
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
