@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import placeholderImage from '../assets/livro.jpeg';
 
@@ -21,14 +20,16 @@ const Biblioteca = () => {
   return (
     <main style={{ padding: '20px' }}>
       <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>📚 Minha Biblioteca</h2>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)', // <-- Aqui limitamos a 5 por linha
-        gap: '20px',
-      }}
-    >
-
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '30px',
+          paddingBottom: '100px',
+          maxWidth: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
         {livrosUsuario.map((livro) => (
           <div
             key={livro.id}
@@ -39,13 +40,14 @@ const Biblioteca = () => {
               textAlign: 'center',
               background: '#fdfdfd',
               cursor: 'pointer',
+              boxSizing: 'border-box',
             }}
             onClick={() => navigate(`/livro/${livro.id}`, { state: livro })}
           >
             <img
               src={livro.imagem}
               alt={`Capa do livro ${livro.titulo}`}
-              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '4px' }}
+              style={{ width: '100%', height: '270px', objectFit: 'cover', borderRadius: '4px' }}
             />
             <h4 style={{ margin: '10px 0', fontSize: '1rem' }}>{livro.titulo}</h4>
             <span
@@ -67,7 +69,6 @@ const Biblioteca = () => {
   );
 };
 
-// Função auxiliar para mudar a cor do badge com base no status
 const getBadgeColor = (status) => {
   switch (status) {
     case 'lido':
