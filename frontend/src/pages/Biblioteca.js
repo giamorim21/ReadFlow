@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/Home.css'; 
 import placeholderImage from '../assets/livro.jpeg';
 
 const livrosUsuario = [
@@ -8,45 +7,80 @@ const livrosUsuario = [
   { id: 102, titulo: 'A Menina que Roubava Livros', imagem: placeholderImage, status: 'lendo' },
   { id: 103, titulo: 'Harry Potter e a Pedra Filosofal', imagem: placeholderImage, status: 'quero ler' },
   { id: 104, titulo: 'Dom Casmurro', imagem: placeholderImage, status: 'lido' },
-  { id: 105, titulo: '1984', imagem: placeholderImage, status: 'lendo' },
+  { id: 105, titulo: '1984', imagem: placeholderImage, status: 'abandonado' },
   { id: 106, titulo: 'O Senhor dos Anéis', imagem: placeholderImage, status: 'quero ler' },
+  { id: 107, titulo: 'A Revolução dos Bichos', imagem: placeholderImage, status: 'lido' },
+  { id: 108, titulo: 'O Hobbit', imagem: placeholderImage, status: 'lendo' },
+  { id: 109, titulo: 'Cem Anos de Solidão', imagem: placeholderImage, status: 'quero ler' },
+  { id: 110, titulo: 'Orgulho e Preconceito', imagem: placeholderImage, status: 'lido' },
 ];
 
-const LivroCard = ({ livro, onClick }) => (
-  <div className="livro-card" onClick={onClick}>
-    <img src={livro.imagem} alt={`Capa do livro ${livro.titulo}`} />
-    <h4>{livro.titulo}</h4>
-    <span className={`status-badge status-${livro.status.replace(' ', '-')}`}>
-      {livro.status.charAt(0).toUpperCase() + livro.status.slice(1)}
-    </span>
-  </div>
-);
-
-const Galeria = ({ livros, titulo }) => {
+const Biblioteca = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="galeria-section">
-      <h2 className="titulo-estilizado">{titulo}</h2>
-      <div className="livros-galeria">
-        {livros.map((livro) => (
-          <LivroCard
+    <main style={{ padding: '20px' }}>
+      <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>📚 Minha Biblioteca</h2>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)', // <-- Aqui limitamos a 5 por linha
+        gap: '20px',
+      }}
+    >
+
+        {livrosUsuario.map((livro) => (
+          <div
             key={livro.id}
-            livro={livro}
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              padding: '10px',
+              textAlign: 'center',
+              background: '#fdfdfd',
+              cursor: 'pointer',
+            }}
             onClick={() => navigate(`/livro/${livro.id}`, { state: livro })}
-          />
+          >
+            <img
+              src={livro.imagem}
+              alt={`Capa do livro ${livro.titulo}`}
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '4px' }}
+            />
+            <h4 style={{ margin: '10px 0', fontSize: '1rem' }}>{livro.titulo}</h4>
+            <span
+              style={{
+                display: 'inline-block',
+                backgroundColor: getBadgeColor(livro.status),
+                color: 'white',
+                borderRadius: '10px',
+                padding: '4px 8px',
+                fontSize: '0.75rem',
+              }}
+            >
+              {livro.status}
+            </span>
+          </div>
         ))}
       </div>
-    </section>
+    </main>
   );
 };
 
-const Biblioteca = () => {
-  return (
-    <main className="home-container">
-      <Galeria livros={livrosUsuario} titulo="📚 Minha Biblioteca" />
-    </main>
-  );
+// Função auxiliar para mudar a cor do badge com base no status
+const getBadgeColor = (status) => {
+  switch (status) {
+    case 'lido':
+      return '#30cd72';
+    case 'lendo':
+      return '#e3a849';
+    case 'quero ler':
+      return '#61bffe';
+    case 'abandonado':
+      return '#000000';
+    default:
+      return '#007bff';
+  }
 };
 
 export default Biblioteca;
