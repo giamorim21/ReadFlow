@@ -9,6 +9,7 @@
   position: relative;
 }
 
+/* Logo */
 .logo-container {
   display: flex;
   align-items: center;
@@ -27,6 +28,7 @@
   margin: auto 0;
 }
 
+/* Barra de busca */
 .search-bar {
   background-color: white;
   padding: 8px 16px;
@@ -37,6 +39,7 @@
   flex-grow: 1;
   margin: 0 24px;
   max-width: 400px;
+  min-width: 200px;
 }
 
 .menu-icon,
@@ -55,6 +58,7 @@
   width: 100%;
 }
 
+/* Ícones */
 .left-icons {
   display: flex;
   align-items: center;
@@ -79,20 +83,21 @@
   background-color: #3b2a15;
 }
 
-/* USER ICON - Clique visível com cursor */
+/* Ícone do usuário */
 .user-icon {
   background-color: #3b2a15;
   padding: 10px;
   border-radius: 50%;
   color: #f5f5f5;
-  cursor: pointer; /* <<< Adicionado */
+  cursor: pointer;
   position: relative;
 }
 
 .user-icon:hover {
-  background-color: #4b351c; /* <<< Hover visual */
+  background-color: #4b351c;
 }
 
+/* Menu do usuário */
 .user-menu {
   position: absolute;
   top: 80px;
@@ -128,4 +133,52 @@
 
 .logout-button:hover {
   background-color: #5a3e22;
+}
+
+@media (max-width: 1200px) {
+  .header {
+    padding: 10px 16px;
+  }
+
+  .logo-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .search-bar {
+    max-width: 300px;
+    margin: 10px 0;
+    min-width: 150px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
+  .icon {
+    padding: 8px;
+  }
+
+  .left-icons {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .logo-container,
+  .search-bar,
+  .left-icons {
+    flex-basis: 100%;
+    justify-content: center;
+    margin: 8px 0;
+  }
 }
