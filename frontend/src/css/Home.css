@@ -4,14 +4,14 @@
   flex-direction: column;
   align-items: center;
   gap: 64px;
-  background-color: #f7f7f7;
+  background-color: var(--cor-fundo-claro);
   min-height: 100vh;
 }
 
 .titulo-estilizado {
   font-size: 30px;
   font-weight: 700;
-  color: #251a0b;
+  color: var(--cor-principal);
   text-align: center;
   margin-bottom: 24px;
   position: relative;
@@ -43,7 +43,7 @@
 }
 
 .livro-card {
-  background-color: white;
+  background-color: var(--cor-fundo);
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   padding: 24px 20px;
@@ -66,26 +66,26 @@
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .livro-card h4 {
   font-size: 20px;
   margin: 0 0 8px 0;
-  color: #251a0b;
+  color: var(--cor-principal);
   font-weight: 600;
 }
 
 .livro-card p {
   font-size: 15px;
-  color: #666;
+  color: var(--cor-texto-secundario);
   margin-top: 0;
   line-height: 1.4;
 }
 
 .seta {
-  background-color: #251a0b;
-  color: white;
+  background-color: var(--cor-principal);
+  color: var(--cor-fundo);
   border: none;
   border-radius: 50%;
   padding: 14px 18px;
@@ -100,7 +100,7 @@
 }
 
 .seta:hover {
-  background-color: #3b2a15;
+  background-color: var(--cor-principal-hover);
 }
 
 .seta.esquerda {

@@ -1,6 +1,5 @@
 .biblioteca-container {
-  padding: 40px 40px 20px 40px;
-  font-family: 'Montserrat', sans-serif;
+  padding: 40px 40px 20px 40px; /* padding geral da página */
   background: #f5f5f5;
   min-height: 100vh;
   display: flex;
@@ -64,7 +63,7 @@
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  padding: 24px 20px 40px 20px;
+  padding: 24px 20px 40px 20px; /* espaço extra embaixo para botão */
   min-width: 240px;
   max-width: 240px;
   cursor: default;
@@ -92,7 +91,7 @@
   margin: 0 0 8px 0;
   color: #251a0b;
   font-weight: 700;
-  min-height: 56px;
+  min-height: 56px; /* altura fixa, aproximadamente 2 linhas de título */
   overflow: hidden;
 }
 
@@ -103,7 +102,6 @@
   border-radius: 10px;
   color: white;
   text-transform: capitalize;
-  margin-bottom: 4px;
 }
 
 .status-lido {
@@ -122,6 +120,7 @@
   background-color: #000000;
 }
 
+/* Botão de excluir no canto inferior direito do card */
 .btn-excluir {
   position: absolute;
   bottom: 14px;
@@ -143,19 +142,12 @@
   background-color: #b0232f;
 }
 
-/* Estrelas de avaliação */
-.estrelas-avaliacao {
-  margin-top: 6px;
-}
-
-.estrela {
-  font-size: 22px;
-  margin-right: 2px;
-  color: #ccc;
-  transition: color 0.3s ease, font-size 0.3s ease;
-}
-
-.estrela:not(.inativa) {
-  color: #cab06e;
-  font-size: 26px;
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 10px;
+  color: white;
+  text-transform: capitalize;
+  margin-bottom: 4px; /* espaço para as estrelas */
 }

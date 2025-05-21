@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaBookmark } from 'react-icons/fa';
+import Estrelas from '../components/Estrelas';
+import MarcadorStatus from '../components/MarcadorStatus';
+import ReviewItem from '../components/ReviewItem';
 import '../css/DetalheLivro.css';
 
 const DetalheLivro = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [livro, setLivro] = useState(null);
   const [status, setStatus] = useState('');
   const [avaliacao, setAvaliacao] = useState(0);
 
   useEffect(() => {
-    const respostaSimulada = {
+    // Simulação de requisição
+    const resposta = {
       id,
       titulo: 'O Pequeno Príncipe',
       autor: 'Antoine de Saint-Exupéry',
@@ -27,76 +32,71 @@ const DetalheLivro = () => {
         { usuario: 'Lucas', nota: 4, comentario: 'Muito bom, mas esperava mais do final.' },
       ],
     };
-    setLivro(respostaSimulada);
+    setLivro(resposta);
   }, [id]);
+
+  const handleAvaliacao = (nota) => {
+    setAvaliacao(nota);
+    // TODO: enviar avaliação para o backend
+  };
+
+  const handleMarcador = (novoStatus) => {
+    setStatus(prev => prev === novoStatus ? '' : novoStatus);
+    // TODO: salvar status no backend
+  };
 
   if (!livro) return <p>Carregando...</p>;
 
   return (
-    <div className="detalhe-container">
+    <div className="container-detalhe">
       <button className="botao-voltar" onClick={() => navigate(-1)}>← Voltar</button>
 
-      <div className="livro-detalhes">
-        {/* Coluna da imagem */}
+      <div className="conteudo">
         <div className="coluna-imagem">
-          <img src={livro.imagem} alt={livro.titulo} className="imagem-livro" />
+          <img src={livro.imagem} alt={`Capa de ${livro.titulo}`} />
         </div>
 
-        {/* Coluna dos detalhes */}
-        <div className="coluna-detalhes">
-          <h1>{livro.titulo}</h1>
-          <h3>{livro.autor}</h3>
-          <ul className="info-extra">
-            <li><strong>Gênero:</strong> {livro.genero}</li>
-            <li><strong>Ano:</strong> {livro.ano_lancamento}</li>
-            <li><strong>Páginas:</strong> {livro.quantidade_paginas}</li>
-            <li><strong>Editora:</strong> {livro.editora}</li>
-          </ul>
-          <p className="descricao">{livro.sinopse}</p>
+        <div className="coluna-info">
+          <h2 className="titulo">{livro.titulo}</h2>
+          <p><strong>Autor:</strong> {livro.autor}</p>
+          <p><strong>Gênero:</strong> {livro.genero}</p>
+          <p><strong>Ano de Lançamento:</strong> {livro.ano_lancamento}</p>
+          <p><strong>Páginas:</strong> {livro.quantidade_paginas}</p>
+          <p><strong>Editora:</strong> {livro.editora}</p>
+          <p><strong>Sinopse:</strong> {livro.sinopse}</p>
+
+          <p><strong>Avaliação Média:</strong></p>
           <div className="avaliacao-media">
-            <div className="estrelas">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className={`estrela ${livro.media >= i ? 'cheia' : ''}`}>★</span>
-              ))}
-            </div>
+            <Estrelas nota={Math.floor(livro.media)} />
             <span className="nota-media">{livro.media.toFixed(1)}</span>
           </div>
         </div>
 
-        {/* Coluna das interações */}
         <div className="coluna-interacoes">
-          <div className="cabecalho-interacoes">
-            <span className="barra-lateral"></span>
-            <h3 className="titulo-biblioteca">Adicionar à Biblioteca</h3>
-          </div>
+          <h3>Adicione à Biblioteca</h3>
 
           <div className="marcadores">
-            {['quero ler', 'lendo', 'lido', 'abandonado'].map((opcao) => (
-              <button
-                key={opcao}
-                className={`marcador ${status === opcao ? 'ativo' : ''}`}
-                onClick={() => setStatus(opcao)}
-              >
-                <FaBookmark className="icone-bookmark" />
-                {opcao.charAt(0).toUpperCase() + opcao.slice(1)}
-              </button>
-            ))}
+            <h3>Status de Leitura</h3>
+            <div className="grid-marcadores">
+              {['Quero ler', 'Lendo', 'Lido', 'Abandonado'].map((item) => (
+                <MarcadorStatus
+                  key={item}
+                  ativo={status === item}
+                  onClick={() => handleMarcador(item)}
+                >
+                  <FaBookmark className="icone-bookmark" />
+                  {item}
+                </MarcadorStatus>
+              ))}
+            </div>
           </div>
 
           <div className="avaliacao-usuario">
-            <p>Avalie este livro:</p>
+            <h3>Sua Avaliação</h3>
             <div className="estrelas-clique">
-              {[1, 2, 3, 4, 5].map((estrela) => (
-                <span
-                  key={estrela}
-                  className={`estrela ${avaliacao >= estrela ? 'cheia' : ''}`}
-                  onClick={() => setAvaliacao(estrela)}
-                >
-                  ★
-                </span>
-              ))}
+              <Estrelas nota={avaliacao} clicavel onClick={handleAvaliacao} />
               {avaliacao > 0 && (
-                <span className="nota-selecionada">{avaliacao}/5</span>
+                <span className="nota-selecionada">{avaliacao} estrela{avaliacao > 1 ? 's' : ''}</span>
               )}
             </div>
           </div>
@@ -104,19 +104,9 @@ const DetalheLivro = () => {
       </div>
 
       <div className="ultimas-reviews">
-        <h3>Últimas avaliações</h3>
+        <h3>Últimas Reviews</h3>
         {livro.reviews.map((review, i) => (
-          <div className="review" key={i}>
-            <div className="review-header">
-              <strong>{review.usuario}</strong>
-              <span className="estrelas">
-                {[1, 2, 3, 4, 5].map((e) => (
-                  <span key={e} className={`estrela ${review.nota >= e ? 'cheia' : ''}`}>★</span>
-                ))}
-              </span>
-            </div>
-            <p>{review.comentario}</p>
-          </div>
+          <ReviewItem key={i} review={review} />
         ))}
       </div>
     </div>

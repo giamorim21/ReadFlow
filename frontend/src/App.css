@@ -10,14 +10,12 @@
 /* Lado esquerdo (formulário) */
 .left-panel {
   flex: 1;
-  background-image: linear-gradient(
-    rgba(0, 0, 0, 0.6),
-    rgba(0, 0, 0, 0.6)
-  ),
-  url("./assets/biblioteca.avif");
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("./assets/biblioteca.avif");
   background-size: cover;
   background-position: center;
-  color: #ffffff;
+  color: var(--cor-texto-principal); /* antes branco #fff */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,21 +39,21 @@
   margin: 1rem 0;
   max-width: 600px;
   line-height: 1.6;
-  color: #e0d0f5;
+  color: #e0d0f5; /* pode manter para um tom suave */
 }
 
 /* Lado direito (imagem com sombra) */
 .right-panel {
   flex: 1;
-  background-color: #251a0b;
-  color: #fff;
+  background-color: var(--cor-principal); /* antes #251a0b */
+  color: var(--cor-texto-principal);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   text-align: center;
-  overflow-y: auto; /* Adicionado para evitar estouro vertical */
+  overflow-y: auto; /* para evitar estouro vertical */
 }
 
 /* Container de login e cadastro com transparência */
@@ -69,13 +67,13 @@
   width: 100%;
   max-width: 400px;
   text-align: center;
-  color: #fff;
+  color: var(--cor-texto-principal);
 }
 
 /* Título do login/cadastro */
 .login-container h2 {
   margin-bottom: 1.5rem;
-  color: #fff;
+  color: var(--cor-texto-principal);
 }
 
 /* Formulário de login/cadastro */
@@ -109,8 +107,8 @@
 .login-form button {
   width: 100%;
   padding: 0.8rem;
-  background-color: #734590;
-  color: white;
+  background-color: var(--cor-secundaria); /* #734590 */
+  color: var(--cor-fundo); /* branco */
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -119,14 +117,14 @@
 }
 
 .login-form button:hover {
-  background-color: #9335b0;
+  background-color: #9335b0; /* um tom um pouco mais forte */
 }
 
 /* Texto de cadastro */
 .signup-text {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #fff;
+  color: var(--cor-texto-principal);
 }
 
 .signup-text a {
