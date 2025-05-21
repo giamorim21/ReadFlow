@@ -1,34 +1,109 @@
+.biblioteca-container {
+  padding: 40px 40px 20px 40px;
+  font-family: 'Montserrat', sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo-principal {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #251a0b;
+  font-weight: 700;
+}
+
+.filtro-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.btn-filtro {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 30px;
+  background-color: #ddd;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: capitalize;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-filtro.ativo {
+  background-color: #251a0b;
+  color: white;
+}
+
+.btn-filtro:hover {
+  background-color: #6b512c;
+  color: white;
+}
+
 .livros-galeria {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: center;
+}
+
+.msg-sem-livros {
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  width: 100%;
+}
+
+.livro-card {
+  position: relative;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 24px 20px 40px 20px;
+  min-width: 240px;
+  max-width: 240px;
+  cursor: default;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
 .livro-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .livro-card img {
   width: 100%;
-  height: 220px;
+  height: 260px;
   object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
-.livro-card h4 {
-  margin: 10px;
-  font-size: 1.1rem;
-  color: #111;
-  flex-grow: 1;
+.livro-titulo {
+  font-size: 22px;
+  margin: 0 0 8px 0;
+  color: #251a0b;
+  font-weight: 700;
+  min-height: 56px;
+  overflow: hidden;
 }
 
 .status-badge {
-  margin: 0 10px 10px 10px;
-  font-size: 0.8rem;
-  padding: 4px 8px;
-  border-radius: 15px;
-  color: white;
   display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 10px;
+  color: white;
+  text-transform: capitalize;
+  margin-bottom: 4px;
 }
 
 .status-lido {
@@ -42,6 +117,45 @@
 .status-quero-ler {
   background-color: #61bffe;
 }
+
 .status-abandonado {
   background-color: #000000;
+}
+
+.btn-excluir {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background-color: #e63946;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  line-height: 28px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-excluir:hover {
+  background-color: #b0232f;
+}
+
+/* Estrelas de avaliação */
+.estrelas-avaliacao {
+  margin-top: 6px;
+}
+
+.estrela {
+  font-size: 22px;
+  margin-right: 2px;
+  color: #ccc;
+  transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+.estrela:not(.inativa) {
+  color: #cab06e;
+  font-size: 26px;
 }
