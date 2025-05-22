@@ -1,12 +1,37 @@
+/* Layout principal */
 .config-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Títulos */
+.config-title,
+.section-title {
+  text-align: center;
+  color: #333;
+}
+
+.config-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1.3rem;
+}
+
+/* Grupos de inputs */
 .config-group {
   display: flex;
   flex-direction: column;
@@ -15,6 +40,7 @@
 .config-group label {
   margin-bottom: 0.4rem;
   font-size: 0.95rem;
+  color: #333;
 }
 
 .config-group input {
@@ -23,20 +49,24 @@
   border-radius: 8px;
   background-color: #eee;
   font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-.config-group input:disabled {
-  color: #777;
+.config-group input:focus {
+  outline: none;
+  border-color: var(--cor-principal);
+  background-color: #fff;
 }
 
+/* Switches de configuração */
 .config-switch {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.95rem;
+  color: var(--cor-hover-logout);
 }
 
-/* Estilo do toggle */
 .switch {
   position: relative;
   display: inline-block;
@@ -59,45 +89,144 @@
   left: 0;
   right: 0;
   bottom: 0;
-  transition: .4s;
+  transition: background-color 0.4s;
 }
 
-.slider:before {
-  position: absolute;
+.slider::before {
   content: "";
+  position: absolute;
   height: 18px;
   width: 18px;
   left: 3px;
   bottom: 3px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 50%;
-  transition: .4s;
+  transition: transform 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #4CAF50;
+  background-color: var(--cor-hover-logout);
 }
 
-input:checked + .slider:before {
+input:checked + .slider::before {
   transform: translateX(18px);
 }
 
-.config-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-.config-actions button {
-  background: none;
+/* Botões */
+.botao-voltar {
+  background-color: var(--cor-principal);
+  color: var(--cor-texto-claro);
   border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.4rem;
-  color: #333;
-  transition: color 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.config-actions button:hover {
-  color: #4CAF50;
+.botao-voltar:hover {
+  background-color: var(--cor-hover-logout);
+  transform: scale(1.05);
+}
+
+/* Coluna de botões finais */
+.config-buttons-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+/* Modal geral */
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* substitui top, left, width, height */
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h2 {
+  font-size: 1.3rem;
+  text-align: center;
+  color: #333;
+}
+
+.modal-content p {
+  text-align: center;
+  font-size: 1rem;
+  color: #444;
+}
+
+.modal-content input {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: var(--cor-principal);
+  background-color: #fff;
+}
+
+/* Botões do modal */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-buttons button {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+/* Botão cancelar */
+.modal-buttons .cancelar-btn {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+}
+
+.modal-buttons .cancelar-btn:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.02);
+}
+
+/* Botão confirmar ação */
+.modal-buttons .confirmar-btn {
+  background-color: var(--cor-principal);
+  color: var(--cor-texto-claro);
+  border: none;
+}
+
+.modal-buttons .confirmar-btn:hover {
+  background-color: var(--cor-hover-logout);
+  transform: scale(1.05);
 }
