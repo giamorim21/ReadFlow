@@ -1,35 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaSave, FaSignOutAlt, FaTrash } from 'react-icons/fa';
 import '../css/Configuracao.css';
 
 const Configuracao = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  const [notificacoes, setNotificacoes] = useState(true);
+
   return (
     <main className="config-container">
-      <h2>Configurações</h2>
+      <div className="config-group">
+        <label>Alterar nome de usuário</label>
+        <input type="text" placeholder="Izabelle Silva" />
+      </div>
 
-      <section className="config-account">
-        <h3>Conta</h3>
-        <p><strong>Nome:</strong> Izabelle Silva</p>
-        <p><strong>Email:</strong> izabelle@email.com</p>
-        <div className="config-buttons">
-          <button className="editar">Editar Perfil</button>
-          <button className="senha">Alterar Senha</button>
-        </div>
-      </section>
+      <div className="config-group">
+        <label>Email cadastrado:</label>
+        <input type="email" placeholder="izabelle@email.com" disabled />
+      </div>
 
-      <section className="config-grid">
-        <div className="config-card">
-          <h4>Notificações</h4>
-          <button className="ativo">Ativado</button>
-        </div>
-        <div className="config-card">
-          <h4>Modo Escuro</h4>
-          <button className="inativo">Desativado</button>
-        </div>
-        <div className="config-card">
-          <h4>Idioma</h4>
-          <button className="ativo">Português</button>
-        </div>
-      </section>
+      <div className="config-switch">
+        <label>Modo noturno</label>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={darkMode}
+            onChange={() => setDarkMode(!darkMode)}
+          />
+          <span className="slider" />
+        </label>
+      </div>
+
+      <div className="config-switch">
+        <label>Enviar notificações por email</label>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={notificacoes}
+            onChange={() => setNotificacoes(!notificacoes)}
+          />
+          <span className="slider" />
+        </label>
+      </div>
+
+      <div className="config-actions">
+        <button title="Salvar alterações">
+          <FaSave />
+        </button>
+        <button title="Sair da conta">
+          <FaSignOutAlt />
+        </button>
+        <button title="Apagar conta">
+          <FaTrash />
+        </button>
+      </div>
     </main>
   );
 };

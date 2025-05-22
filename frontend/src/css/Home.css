@@ -85,7 +85,7 @@
 
 .seta {
   background-color: var(--cor-principal);
-  color: var(--cor-fundo);
+  color: var(--cor-fundo-claro);
   border: none;
   border-radius: 50%;
   padding: 14px 18px;
