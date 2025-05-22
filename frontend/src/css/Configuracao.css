@@ -114,7 +114,7 @@ input:checked + .slider::before {
 
 /* Botões */
 .botao {
-  background-color: var(--cor-hover-logout);
+  background-color: var(--cor-principal);
   color: var(--cor-texto-claro);
   border: none;
   padding: 0.6rem 1rem;
@@ -129,7 +129,7 @@ input:checked + .slider::before {
 }
 
 .botao:hover {
-  background-color: var(--cor-principal);
+  background-color: var(--cor-hover-logout);
   transform: scale(1.05);
 }
 
