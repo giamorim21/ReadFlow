@@ -2,91 +2,87 @@
    Estilos para a página de login e cadastro
 ----------------------------------------------------- */
 .login-page {
-  display: flex;            /* Layout flexível para dividir em painéis */
-  flex-wrap: wrap;          /* Permite quebra em múltiplas linhas, se necessário */
-  min-height: 100vh;        /* Altura mínima para ocupar a tela toda */
-  width: 100vw;             /* Largura total da viewport */
-  overflow: auto;           /* Scroll se conteúdo ultrapassar */
+  display: flex;            
+  flex-wrap: wrap;          
+  min-height: 100vh;        
+  width: 100vw;             
+  overflow: auto;           
 }
 
 /* -----------------------------------------------------
    Lado esquerdo: Painel com formulário ou apresentação
 ----------------------------------------------------- */
 .left-panel {
-  flex: 1;                  /* Ocupa metade do espaço disponível */
-  /* Fundo com imagem e sobreposição escura para contraste */
+  flex: 1;                  
   background-image:
     linear-gradient(
-      rgba(0, 0, 0, 0.6),  /* Overlay preto translúcido */
+      rgba(0, 0, 0, 0.6), 
       rgba(0, 0, 0, 0.6)
     ),
-    url("./assets/biblioteca.avif"); /* Imagem da biblioteca */
-  background-size: cover;   /* Imagem cobre todo o espaço */
-  background-position: center; /* Centraliza a imagem */
-  color: var(--cor-fundo-claro); /* Texto claro para boa legibilidade */
-  display: flex;            /* Flex para centralizar conteúdo */
-  flex-direction: column;   /* Organiza itens em coluna */
-  align-items: center;      /* Centraliza horizontalmente */
-  justify-content: center;  /* Centraliza verticalmente */
-  padding: 2rem;            /* Espaçamento interno */
-  text-align: center;       /* Texto centralizado */
+    url("./assets/biblioteca.avif"); 
+  background-size: cover;   
+  background-position: center; 
+  color: var(--cor-fundo-claro); 
+  display: flex;            
+  flex-direction: column;   
+  align-items: center;      
+  justify-content: center;  
+  padding: 2rem;            
+  text-align: center;       
 }
 
-/* Logo com tamanho fixo e margem inferior */
 .logo {
   width: 300px;
   margin-bottom: 1.5rem;
 }
 
-/* Título do sistema */
 .system-title {
-  font-size: 2rem;          /* Tamanho de fonte maior para destaque */
-  margin-bottom: 1rem;      /* Espaço abaixo do título */
+  font-size: 2rem;          
+  margin-bottom: 1rem;      
   color: var(--cor-fundo-claro);
 }
 
 /* Descrição do sistema */
 .system-description {
-  font-size: 1.2rem;        /* Fonte um pouco menor que o título */
-  margin: 1rem 0;           /* Espaço vertical */
-  max-width: 600px;         /* Limita largura para melhor leitura */
-  line-height: 1.6;         /* Espaçamento entre linhas para conforto */
-  color: var(--cor-descricao-suave); /* Cor suave para menos destaque */
+  font-size: 1.2rem;       
+  margin: 1rem 0;           
+  max-width: 600px;         
+  line-height: 1.6;        
+  color: var(--cor-descricao-suave); 
 }
 
 /* -----------------------------------------------------
    Lado direito: Painel com formulário de login/cadastro
 ----------------------------------------------------- */
 .right-panel {
-  flex: 1;                  /* Ocupa metade do espaço disponível */
-  background-color: var(--cor-principal); /* Fundo escuro principal */
-  color: var(--cor-fundo-claro); /* Texto claro para contraste */
-  display: flex;            /* Flex para alinhamento central */
+  flex: 1;                 
+  background-color: var(--cor-principal); 
+  color: var(--cor-fundo-claro); 
+  display: flex;            
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   text-align: center;
-  overflow-y: auto;         /* Permite scroll vertical se necessário */
+  overflow-y: auto;         
 }
 
 /* -----------------------------------------------------
    Container do formulário com fundo translúcido e blur
 ----------------------------------------------------- */
 .login-container {
-  background-color: var(--cor-fundo-transparente); /* Fundo translúcido roxo */
-  backdrop-filter: blur(10px);                      /* Efeito blur no fundo */
-  -webkit-backdrop-filter: blur(10px);              /* Compatibilidade Safari */
+  background-color: var(--cor-fundo-transparente); 
+  backdrop-filter: blur(10px);                      
+  -webkit-backdrop-filter: blur(10px);              
   padding: 2rem;
-  border-radius: 16px;      /* Bordas arredondadas para suavidade */
-  box-shadow: 0 8px 24px var(--cor-sombra); /* Sombra para profundidade */
+  border-radius: 16px;      
+  box-shadow: 0 8px 24px var(--cor-sombra); 
   width: 100%;
-  max-width: 400px;         /* Limita largura máxima */
+  max-width: 400px;         
   text-align: center;
-  color: var(--cor-texto-principal); /* Cor principal do texto */
+  color: var(--cor-texto-principal); 
 }
 
-/* Título dentro do container */
 .login-container h2 {
   margin-bottom: 1.5rem;
   color: var(--cor-fundo-claro);
@@ -100,28 +96,25 @@
   flex-direction: column;
 }
 
-/* Inputs do formulário */
 .login-form input {
-  width: 100%;                    /* Ocupa toda largura do container */
-  padding: 0.8rem;                /* Espaçamento interno confortável */
-  margin-bottom: 1rem;            /* Espaço entre inputs */
-  border: 1px solid var(--cor-borda-input); /* Borda neutra */
-  border-radius: 8px;             /* Bordas levemente arredondadas */
+  width: 100%;                    
+  padding: 0.8rem;                
+  margin-bottom: 1rem;            
+  border: 1px solid var(--cor-borda-input); 
+  border-radius: 8px;             
   font-size: 1rem;
-  outline: none;                  /* Remove contorno padrão do navegador */
-  transition: border-color 0.3s ease; /* Transição suave para foco */
-  background-color: var(--cor-fundo-claro); /* Fundo claro dos inputs */
-  color: var(--cor-texto-principal); /* Texto escuro para legibilidade */
+  outline: none;                  
+  transition: border-color 0.3s ease; 
+  background-color: var(--cor-fundo-claro); 
+  color: var(--cor-texto-principal); 
 }
 
-/* Placeholder dos inputs */
 .login-form input::placeholder {
-  color: var(--cor-placeholder); /* Cor cinza média */
+  color: var(--cor-placeholder); 
 }
 
-/* Efeito ao focar no input */
 .login-form input:focus {
-  border-color: var(--cor-borda-foco); /* Borda azul para foco */
+  border-color: var(--cor-borda-foco); 
 }
 
 /* -----------------------------------------------------
@@ -130,18 +123,17 @@
 .login-form button {
   width: 100%;
   padding: 0.8rem;
-  background-color: var(--cor-secundaria); /* Cor secundária principal */
-  color: var(--cor-fundo);                   /* Texto claro */
+  background-color: var(--cor-secundaria); 
+  color: var(--cor-fundo);                   
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  cursor: pointer;                           /* Muda cursor ao passar mouse */
-  transition: background-color 0.3s ease;  /* Transição suave no hover */
+  cursor: pointer;                           
+  transition: background-color 0.3s ease;  
 }
 
-/* Hover no botão */
 .login-form button:hover {
-  background-color: var(--cor-hover-secundaria); /* Tom mais forte */
+  background-color: var(--cor-hover-secundaria); 
 }
 
 /* -----------------------------------------------------
@@ -153,23 +145,21 @@
   color: var(--cor-fundo-claro);
 }
 
-/* Link dentro do texto de cadastro */
 .signup-text a {
-  color: var(--cor-link-destaque);    /* Cor para links que se destacam */
+  color: var(--cor-link-destaque);    
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-/* Hover no link */
 .signup-text a:hover {
-  color: var(--cor-hover-secundaria); /* Cor mais forte no hover */
+  color: var(--cor-hover-secundaria); 
 }
 
 /* -----------------------------------------------------
    Caixa de apresentação (ex: texto explicativo)
 ----------------------------------------------------- */
 .presentation-box {
-  background-color: var(--cor-overlay-preto-suave); /* Fundo preto translúcido suave */
+  background-color: var(--cor-overlay-preto-suave); 
   padding: 2rem;
   border-radius: 16px;
   max-width: 700px;

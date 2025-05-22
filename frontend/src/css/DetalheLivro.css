@@ -1,48 +1,71 @@
 :root {
-  --cor-dourado: #cab06e;
-  --cor-cinza-claro: #ddd;
-  --cor-texto-principal: #251a0b;
-  --cor-texto-secundario: #4b3a0c;
-  --cor-fundo: #fdfaf5;
-  --cor-fundo-interacoes: #fffaf0;
-  --cor-marcador-bg: #f5f1de;
-  --cor-marcador-hover-bg: #ccb27a;
-  --cor-marcador-hover-texto: #fff;
+  /* Variáveis de cor conforme index.css */
+  --cor-principal: #251a0b; /* Cor base, textos e títulos principais */
+  --cor-secundaria: #734590; /* Cor secundária para botões e detalhes */
+  --cor-hover-secundaria: #9335b0; /* Hover para cor secundária */
+  --cor-link-destaque: #e09aea; /* Links e textos que precisam se destacar */
+  --cor-principal-hover: #3b2a15; /* Hover para elementos com cor principal */
+  --cor-texto-secundario: #4b3a0c; /* Textos secundários, legendas */
+  --cor-placeholder: #666666; /* Texto placeholder em inputs */
+  --cor-fundo-claro: #f7f7f7; /* Fundo principal claro da página */
+  --cor-fundo-transparente: rgba(55, 13, 79, 0.634); /* Fundo translúcido para overlays */
+  --cor-fundo-interacoes: #fffaf0; /* Fundo para caixas e áreas de interação */
+  --cor-overlay-preto-suave: rgba(0, 0, 0, 0.5); /* Overlay preto suave para modais */
+  --cor-borda-foco: #2575fc; /* Borda azul para foco em inputs e botões */
+  --cor-descricao-suave: #e0d0f5; /* Detalhes e bordas suaves */
+  --cor-sombra: rgba(0, 0, 0, 0.4); /* Sombra para profundidade */
+  --cor-marcador-bg: #f5f1de; /* Fundo de marcadores/tags */
+  --cor-marcador-hover-bg: #ccb27a; /* Hover no fundo dos marcadores */
+  --cor-marcador-hover-texto: #fff; /* Texto do marcador no hover */
+  --cor-status-lido: #30cd72; /* Status: livro lido (verde) */
+  --cor-status-lendo: #e3a849; /* Status: lendo (amarelo) */
+  --cor-status-quero-ler: #61bffe; /* Status: quero ler (azul) */
+  --cor-status-abandonado: #000000; /* Status: abandonado (preto) */
+  --cor-dourado: #cab06e; /* Destaques e ícones de valor (ex: estrelas) */
+  --cor-cinza-claro: #ddd; /* Bordas e fundos neutros */
+  --cor-btn-excluir: #e63946; /* Botão de excluir/vermelho destrutivo */
+  --cor-btn-excluir-hover: #b0232f; /* Hover botão excluir */
+  --cor-texto-claro: #f5f5f5; /* Texto claro para fundos escuros */
+  --cor-hover-logout: #5a3e22; /* Hover em botão logout */
 }
 
+/* Container principal da página de detalhes */
 .container-detalhe {
   padding: 40px 5%;
   width: 100vw;
   min-height: 100vh;
   box-sizing: border-box;
-  color: var(--cor-texto-principal);
-  background-color: var(--cor-fundo);
+  color: var(--cor-principal); /* Texto principal */
+  background-color: var(--cor-fundo-claro); /* Fundo claro da página */
 }
 
+/* Botão voltar */
 .botao-voltar {
-  background-color: var(--cor-texto-principal);
-  color: white;
+  background-color: var(--cor-principal); /* Fundo escuro */
+  color: var(--cor-texto-claro); /* Texto claro para contraste */
   border: none;
   padding: 12px 20px;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 32px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px var(--cor-sombra);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .botao-voltar:hover {
-  background-color: #6b512c;
+  background-color: var(--cor-principal-hover); /* Hover cor principal mais clara */
   transform: scale(1.05);
 }
 
+/* Conteúdo flex: imagem + informações */
 .conteudo {
   display: flex;
   gap: 40px;
   align-items: stretch;
 }
 
+/* Coluna da imagem */
 .coluna-imagem {
   flex-shrink: 0;
   width: 300px;
@@ -52,10 +75,11 @@
   width: 100%;
   height: auto;
   border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px var(--cor-sombra);
   object-fit: cover;
 }
 
+/* Coluna com informações do livro */
 .coluna-info {
   flex: 1;
   display: flex;
@@ -65,14 +89,16 @@
 .titulo {
   font-size: 36px;
   margin-bottom: 12px;
+  color: var(--cor-principal); /* Título em cor principal */
 }
 
 .coluna-info p {
   font-size: 18px;
   margin-bottom: 8px;
-  color: var(--cor-texto-secundario);
+  color: var(--cor-texto-secundario); /* Texto secundário */
 }
 
+/* Avaliação média com estrelas */
 .avaliacao-media {
   display: flex;
   align-items: center;
@@ -86,26 +112,27 @@
 }
 
 .avaliacao-media .cheia {
-  color: var(--cor-dourado);
+  color: var(--cor-dourado); /* Estrelas cheias douradas */
 }
 
 .avaliacao-media .vazia {
-  color: var(--cor-cinza-claro);
+  color: var(--cor-cinza-claro); /* Estrelas vazias cinza claro */
 }
 
 .nota-media {
   font-weight: bold;
-  color: #5e4c2f;
+  color: #5e4c2f; /* Tom de marrom/dourado escuro para nota */
   font-size: 18px;
 }
 
+/* Coluna de interações (avaliar, marcadores) */
 .coluna-interacoes {
   margin-top: 0;
   width: 400px;
   height: 100%;
-  background-color: var(--cor-fundo-interacoes);
+  background-color: var(--cor-fundo-interacoes); /* Fundo para interação */
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--cor-sombra);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -117,6 +144,7 @@
   margin-bottom: 24px;
 }
 
+/* Avaliação do usuário */
 .avaliacao-usuario {
   margin-top: 24px;
 }
@@ -125,6 +153,7 @@
   margin-bottom: 10px;
 }
 
+/* Estrelas clicáveis para avaliação */
 .estrelas-clique {
   display: flex;
   align-items: center;
@@ -135,10 +164,11 @@
 
 .estrelas-clique .estrela {
   font-size: 30px;
-  color: var(--cor-cinza-claro);
+  color: var(--cor-cinza-claro); /* Estrelas cinza claro por padrão */
   transition: color 0.3s ease;
 }
 
+/* Hover e seleção de estrela */
 .estrelas-clique .estrela:hover,
 .estrelas-clique .estrela:hover ~ .estrela {
   color: var(--cor-dourado);
@@ -155,6 +185,7 @@
   font-size: 16px;
 }
 
+/* Marcadores (quero ler, lendo, etc) */
 .marcadores {
   margin-top: 30px;
 }
@@ -178,33 +209,34 @@
   padding: 10px 18px;
   cursor: pointer;
   user-select: none;
-  color: #7a6f45;
+  color: var(--cor-marrom-suave); /* Tom suave para texto do marcador */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.marcador:hover {
-  background-color: var(--cor-marcador-hover-bg);
-  color: var(--cor-marcador-hover-texto);
-}
-
+/* Hover e ativo do marcador */
+.marcador:hover,
 .marcador.ativo {
   background-color: var(--cor-marcador-hover-bg);
   color: var(--cor-marcador-hover-texto);
   font-weight: bold;
 }
 
+/* Ícone do marcador */
 .icone-bookmark {
   font-size: 20px;
 }
 
+/* Últimas reviews */
 .ultimas-reviews {
   margin-top: 40px;
   max-width: 700px;
   position: relative;
   padding-top: 20px;
+  
 }
 
+/* Linha horizontal acima das últimas reviews */
 .ultimas-reviews::before {
   content: "";
   position: absolute;
@@ -220,6 +252,8 @@
   margin-bottom: 20px;
 }
 
+
+/* Caixa de review */
 .review {
   background-color: var(--cor-fundo-interacoes);
   border-radius: 10px;
@@ -228,6 +262,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Cabeçalho da review */
 .review-header {
   display: flex;
   justify-content: space-between;
@@ -236,9 +271,10 @@
 }
 
 .review-header strong {
-  color: #5e4c2f;
+  color: var(--cor-principal); /* Nome do usuário com cor principal */
 }
 
+/* Estrelas dentro das reviews */
 .estrelas {
   display: flex;
   gap: 3px;
@@ -251,4 +287,9 @@
 
 .estrela.cheia {
   color: var(--cor-dourado);
+}
+
+.estrelas-clique .estrela:focus {
+  outline: none;
+  box-shadow: none;
 }

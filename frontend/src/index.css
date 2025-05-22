@@ -9,6 +9,8 @@
   --cor-hover-secundaria: #9335b0; /* Hover para cor secundária */
   --cor-link-destaque: #e09aea; /* Links e textos que precisam se destacar */
 
+  --cor-marrom-suave: #7a6f45; /* Cor suave para hover */
+
   --cor-principal-hover: #3b2a15; /* Hover para elementos com cor principal */
 
   --cor-texto-secundario: #4b3a0c; /* Textos secundários, legendas */
@@ -42,6 +44,9 @@
   --cor-texto-claro: #f5f5f5; /* Texto claro para fundos escuros */
 
   --cor-hover-logout: #5a3e22; /* Hover em botão logout */
+
+  --cor-dourada: #5e4c2f; /* Cor dourada para estrelas */
+
 }
 
 /* Reset e configurações globais */

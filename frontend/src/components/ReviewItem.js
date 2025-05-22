@@ -1,4 +1,3 @@
-import React from 'react';
 import Estrelas from './Estrelas';
 
 const ReviewItem = ({ review }) => {
