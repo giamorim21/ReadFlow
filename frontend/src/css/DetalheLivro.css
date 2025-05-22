@@ -262,3 +262,63 @@
   outline: none;
   box-shadow: none;
 }
+
+.recomendacoes {
+  margin-top: 60px;
+}
+
+.recomendacoes h3 {
+  margin-bottom: 20px;
+  color: var(--cor-principal);
+}
+
+.grid-recomendacoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+/* estilo baseado em .livro-card */
+.livro-card {
+  background-color: var(--cor-fundo);
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 24px 20px;
+  min-width: 240px;
+  max-width: 240px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.livro-card:hover {
+  transform: translateY(-6px);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px var(--cor-sombra);
+}
+
+.livro-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px var(--cor-sombra);
+  
+}
+
+.livro-card h4 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: var(--cor-principal);
+  font-weight: 600;
+}
+
+.livro-card p {
+  font-size: 15px;
+  color: var(--cor-texto-secundario);
+  margin-top: 0;
+  line-height: 1.4;
+}

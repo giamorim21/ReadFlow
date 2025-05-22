@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MarcadorStatus = ({ ativo, onClick, children }) => {
   return (
     <div

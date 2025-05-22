@@ -15,7 +15,6 @@ const DetalheLivro = () => {
   const [avaliacao, setAvaliacao] = useState(0);
 
   useEffect(() => {
-    // Simulação de requisição
     const resposta = {
       id,
       titulo: 'O Pequeno Príncipe',
@@ -31,18 +30,24 @@ const DetalheLivro = () => {
         { usuario: 'Ana', nota: 5, comentario: 'Maravilhoso!' },
         { usuario: 'Lucas', nota: 4, comentario: 'Muito bom, mas esperava mais do final.' },
       ],
+      recomendados: [
+        { id: 1, titulo: 'A Menina que Roubava Livros', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
+        { id: 2, titulo: 'O Alquimista', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
+        { id: 3, titulo: 'As Aventuras de Tom Sawyer', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
+        { id: 4, titulo: 'Dom Casmurro', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
+        { id: 5, titulo: 'O Mundo de Sofia', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
+        { id: 6, titulo: 'O Morro dos Ventos Uivantes', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
+      ],
     };
     setLivro(resposta);
   }, [id]);
 
   const handleAvaliacao = (nota) => {
     setAvaliacao(nota);
-    // TODO: enviar avaliação para o backend
   };
 
   const handleMarcador = (novoStatus) => {
     setStatus(prev => prev === novoStatus ? '' : novoStatus);
-    // TODO: salvar status no backend
   };
 
   if (!livro) return <p>Carregando...</p>;
@@ -109,6 +114,20 @@ const DetalheLivro = () => {
           <ReviewItem key={i} review={review} />
         ))}
       </div>
+
+      {livro.recomendados && (
+        <div className="recomendacoes">
+          <h3>Leitores desse livro recomendam</h3>
+          <div className="grid-recomendacoes">
+            {livro.recomendados.map((rec) => (
+              <div key={rec.id} className="livro-card">
+                <img src={rec.imagem} alt={`Capa de ${rec.titulo}`} />
+                <h4>{rec.titulo}</h4>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
