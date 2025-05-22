@@ -3,22 +3,45 @@
 
 /* Variáveis globais de cor */
 :root {
-  --cor-principal: #251a0b;          
-  --cor-secundaria: #734590;        
-  --cor-texto-principal: #f5f5f5;   
-  --cor-fundo: #ffffff;              
-  --cor-texto-secundario: #666666;  
-  --cor-hover-secundaria: #9335b0;  
-  --cor-placeholder: #666666;       
-  --cor-borda-foco: #2575fc;        
-  --cor-descricao-suave: #e0d0f5;   
-  --cor-overlay-preto: rgba(0, 0, 0, 0.6);  
-  --cor-overlay-preto-suave: rgba(0, 0, 0, 0.5); 
-  --cor-fundo-transparente: rgba(55, 13, 79, 0.634); 
-  --cor-sombra: rgba(0, 0, 0, 0.4); 
-   --cor-fundo-claro: #f7f7f7;
-  --cor-texto-secundario: #666666;
-  --cor-principal-hover: #3b2a15;
+  --cor-principal: #251a0b; /* Cor base, textos e títulos principais */
+
+  --cor-secundaria: #734590; /* Cor secundária para botões e detalhes */
+  --cor-hover-secundaria: #9335b0; /* Hover para cor secundária */
+  --cor-link-destaque: #e09aea; /* Links e textos que precisam se destacar */
+
+  --cor-principal-hover: #3b2a15; /* Hover para elementos com cor principal */
+
+  --cor-texto-secundario: #4b3a0c; /* Textos secundários, legendas */
+  --cor-placeholder: #666666; /* Texto placeholder em inputs */
+
+  --cor-fundo-claro: #f7f7f7; /* Fundo principal claro da página */
+  --cor-fundo-transparente: rgba(55, 13, 79, 0.634); /* Fundo translúcido para overlays */
+  --cor-fundo-interacoes: #fffaf0; /* Fundo para caixas e áreas de interação */
+
+  --cor-overlay-preto-suave: rgba(0, 0, 0, 0.5); /* Overlay preto suave para modais */
+
+  --cor-borda-foco: #2575fc; /* Borda azul para foco em inputs e botões */
+  --cor-descricao-suave: #e0d0f5; /* Detalhes e bordas suaves */
+  --cor-sombra: rgba(0, 0, 0, 0.4); /* Sombra para profundidade */
+
+  --cor-marcador-bg: #f5f1de; /* Fundo de marcadores/tags */
+  --cor-marcador-hover-bg: #ccb27a; /* Hover no fundo dos marcadores */
+  --cor-marcador-hover-texto: #fff; /* Texto do marcador no hover */
+
+  --cor-status-lido: #30cd72; /* Status: livro lido (verde) */
+  --cor-status-lendo: #e3a849; /* Status: lendo (amarelo) */
+  --cor-status-quero-ler: #61bffe; /* Status: quero ler (azul) */
+  --cor-status-abandonado: #000000; /* Status: abandonado (preto) */
+
+  --cor-dourado: #cab06e; /* Destaques e ícones de valor (ex: estrelas) */
+  --cor-cinza-claro: #ddd; /* Bordas e fundos neutros */
+
+  --cor-btn-excluir: #e63946; /* Botão de excluir/vermelho destrutivo */
+  --cor-btn-excluir-hover: #b0232f; /* Hover botão excluir */
+
+  --cor-texto-claro: #f5f5f5; /* Texto claro para fundos escuros */
+
+  --cor-hover-logout: #5a3e22; /* Hover em botão logout */
 }
 
 /* Reset e configurações globais */
@@ -46,6 +69,6 @@ img {
 }
 
 button {
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
 }

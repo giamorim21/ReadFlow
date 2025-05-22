@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../css/Biblioteca.css';
 import placeholderImage from '../assets/livro.jpeg';
+import Estrelas from '../components/Estrelas'; // ajuste o caminho se necessário
 
 const STATUS_OPCOES = [
   { label: 'Todos', valor: 'todos' },
@@ -10,24 +11,6 @@ const STATUS_OPCOES = [
   { label: 'Lido', valor: 'lido' },
   { label: 'Abandonado', valor: 'abandonado' },
 ];
-
-// Componente para mostrar estrelas de avaliação
-const EstrelasAvaliacao = ({ nota }) => {
-  const estrelas = [];
-
-  for (let i = 1; i <= 5; i++) {
-    estrelas.push(
-      <span
-        key={i}
-        className={`estrela ${i <= nota ? '' : 'inativa'}`}
-      >
-        ★
-      </span>
-    );
-  }
-
-  return <div className="estrelas-avaliacao">{estrelas}</div>;
-};
 
 const Biblioteca = () => {
   const navigate = useNavigate();
@@ -86,7 +69,9 @@ const Biblioteca = () => {
               {livro.status}
             </span>
 
-            <EstrelasAvaliacao nota={livro.nota} />
+            <div className="estrelas-avaliacao">
+              <Estrelas nota={livro.nota} />
+            </div>
 
             <button
               className="btn-excluir"

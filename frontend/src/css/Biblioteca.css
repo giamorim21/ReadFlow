@@ -151,3 +151,26 @@
   text-transform: capitalize;
   margin-bottom: 4px; /* espaço para as estrelas */
 }
+
+.estrela {
+  font-size: 18px;
+  color: var(--cor-cinza-claro);
+}
+
+.estrela.cheia {
+  color: var(--cor-dourado);
+}
+
+.estrelas-avaliacao {
+  margin-top: 10px; /* empurra as estrelas mais para baixo */
+}
+
+.estrela {
+  font-size: 22px; /* aumento do tamanho */
+  color: var(--cor-cinza-claro);
+  margin: 0 1px;
+}
+
+.estrela.cheia {
+  color: var(--cor-dourado);
+}
