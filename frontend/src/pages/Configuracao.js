@@ -82,20 +82,20 @@ const Configuracao = () => {
         </label>
       </div>
 
-      <button onClick={salvarConfiguracoes} className="botao-voltar">
+      <button onClick={salvarConfiguracoes} className="botao">
         <FaSave /> Salvar alterações
       </button>
 
       <h2 className="section-title">Ações</h2>
 
       <div className="config-buttons-column">
-        <button onClick={() => setShowSenhaModal(true)} className="botao-voltar">
+        <button onClick={() => setShowSenhaModal(true)} className="botao">
           <FaKey /> Alterar senha
         </button>
-        <button onClick={sairConta} className="botao-voltar">
+        <button onClick={sairConta} className="botao">
           <FaSignOutAlt /> Sair da conta
         </button>
-        <button onClick={() => setShowApagarModal(true)} className="botao-voltar">
+        <button onClick={() => setShowApagarModal(true)} className="botao">
           <FaTrash /> Apagar conta
         </button>
       </div>
