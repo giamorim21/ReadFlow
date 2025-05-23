@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Home.css';
-import placeholderImage from '../assets/livro.jpeg';
 
 const LivroCard = ({ livro, onClick }) => (
   <div className="livro-card" onClick={onClick}>
-    <img src={livro.imagem || placeholderImage} alt={livro.titulo} />
+    <img
+      src={livro.imagem}
+      alt={livro.titulo}
+    />
     <h4>{livro.titulo}</h4>
-    <p>{livro.autor || 'Autor desconhecido'}</p>
+    <p>{livro.autor}</p>
   </div>
 );
 
-const Carrossel = ({ livros, titulo, idBase, loading }) => {
+const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage }) => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -66,9 +68,9 @@ const Carrossel = ({ livros, titulo, idBase, loading }) => {
                 onClick={() => navigate(`/livro/${livro.id || index}`, { state: livro })}
               />
             ))
-          ) : (
-            <p className="no-books-text">Nenhum livro encontrado.</p>
-          )}
+          ) : notFoundMessage ? (
+            <p className="not-found-text">{notFoundMessage}</p>
+          ) : null}
         </div>
         {!loading && showRightArrow && (
           <button className="seta direita" onClick={() => scrollContainer('right')} aria-label="Scroll para direita">▶</button>
@@ -88,15 +90,23 @@ const Home = () => {
 
   const fetchLivros = async () => {
     try {
-      const resRecomendados = await fetch('http://localhost:8000/google-books/search?query=ficção+brasileira');
-      const dataRecomendados = await resRecomendados.json();
-      setLivrosRecomendados(dataRecomendados);
+      setLoading(true);
+      const [resRecomendados, resPopulares] = await Promise.all([
+        fetch('http://localhost:8000/google-books/search?query=ficção+melhores+livros'),
+        fetch('http://localhost:8000/google-books/search?query=romance+best+seller'),
+      ]);
 
-      const resPopulares = await fetch('http://localhost:8000/google-books/search?query=romance+best+seller');
-      const dataPopulares = await resPopulares.json();
+      const [dataRecomendados, dataPopulares] = await Promise.all([
+        resRecomendados.json(),
+        resPopulares.json(),
+      ]);
+
+      setLivrosRecomendados(dataRecomendados);
       setLivrosPopulares(dataPopulares);
     } catch (error) {
       console.error('Erro ao buscar livros:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,7 +133,12 @@ const Home = () => {
 
   return (
     <main className="home-container">
-      {/* Barra de Busca */}
+      <div className="home-intro-container">
+        <p className="home-intro-text">
+          Bem-vindo ao <strong>ReadFlow</strong>! Encontre livros incríveis para ler, avaliar e acompanhar. 📚
+        </p>
+      </div>
+
       <form className="search-form" onSubmit={handleSearch} style={{ width: '100%', display: 'flex', gap: '10px' }}>
         <input
           type="text"
@@ -142,18 +157,15 @@ const Home = () => {
         <button type="submit" className="search-home-button">🔍</button>
       </form>
 
-      {/* Resultados da Pesquisa */}
-      {isSearching && (
+      {isSearching ? (
         <Carrossel
           livros={searchResults}
           titulo={`🔍 Resultados para "${searchTerm}"`}
           idBase="pesquisa"
           loading={loading}
+          notFoundMessage={`Esse livro não foi encontrado, mas aqui estão algumas opções parecidas! 📖`}
         />
-      )}
-
-      {/* Carrosséis padrão */}
-      {!isSearching && (
+      ) : (
         <>
           <Carrossel
             livros={livrosRecomendados}

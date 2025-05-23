@@ -13,10 +13,15 @@ async def search_books_route(query: str = Query(..., min_length=1), max_results:
     for item in items:
         info = item.get("volumeInfo", {})
 
-        titulo = info.get("title", "Sem título")
+        titulo = info.get("title")
         autores = info.get("authors", [])
-        autor = ", ".join(autores) if autores else None
+        imagem = info.get("imageLinks", {}).get("thumbnail")
 
+        # ✅ FILTRAGEM: ignorar livros incompletos
+        if not (titulo and autores and imagem):
+            continue
+
+        autor = ", ".join(autores)
         categorias = info.get("categories", [])
         genero = ", ".join(categorias) if categorias else None
 
@@ -31,7 +36,7 @@ async def search_books_route(query: str = Query(..., min_length=1), max_results:
             ano_lancamento=ano_lancamento,
             quantidade_paginas=info.get("pageCount"),
             editora=info.get("publisher"),
-            imagem=info.get("imageLinks", {}).get("thumbnail")
+            imagem=imagem
         )
         livros.append(livro)
 

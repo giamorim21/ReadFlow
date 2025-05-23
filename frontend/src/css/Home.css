@@ -158,10 +158,29 @@
   background-color: var(--cor-principal-hover);
 }
 
-.no-books-text {
-  font-size: 18px;
-  color: #666;
-  padding: 20px;
+.home-intro-container {
+  background-color: #fdfdfd;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   text-align: center;
-  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 0 auto;
+}
+
+.home-intro-text {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--cor-principal);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.not-found-text {
+  font-size: 18px;
+  font-style: italic;
+  color: #555;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
 }
