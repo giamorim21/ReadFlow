@@ -106,7 +106,7 @@
   outline: none;                  
   transition: border-color 0.3s ease; 
   background-color: var(--cor-fundo-claro); 
-  color: var(--cor-texto-principal); 
+  color: var(--cor-principal); 
 }
 
 .login-form input::placeholder {
