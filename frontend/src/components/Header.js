@@ -5,7 +5,6 @@ import {
   Bookmark,
   BookOpen,
   Settings,
-  Search,
   LogOut
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
@@ -20,16 +19,14 @@ const Header = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  // Simulação de e-mail do usuário
   const userEmail = "usuario@email.com";
 
   const handleLogout = () => {
     console.log("Usuário deslogado");
-    localStorage.removeItem("token"); // Exemplo
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
-  // Fecha o menu ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
@@ -49,14 +46,7 @@ const Header = () => {
         <h1 className="logo">ReadFlow</h1>
       </div>
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Buscar livros, autores, gêneros..."
-          className="search-input"
-        />
-        <Search size={20} className="search-icon" />
-      </div>
+      {/* Barra de busca removida */}
 
       <div className="left-icons">
         <Link to="/home" className={`icon ${isActive('/home') ? 'active' : ''}`}>
@@ -72,7 +62,6 @@ const Header = () => {
           <Settings size={30} />
         </Link>
 
-        {/* Ícone de usuário com menu suspenso */}
         <div
           className="icon user-icon clickable"
           onClick={() => setShowUserMenu(!showUserMenu)}
