@@ -25,3 +25,21 @@ def cadastrar_usuario(usuario: UsuarioCreate):
     finally:
         cursor.close()
         conn.close()
+        
+@router.post("/login")
+def login_usuario(usuario: UsuarioCreate):
+    conn = get_connection()
+    if not conn:
+        raise HTTPException(status_code=500, detail="Erro de conexão com o banco de dados")
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT id, nome, email, senha_hash FROM Usuario WHERE email = %s", (usuario.email,))
+        user = cursor.fetchone()
+        if not user:
+            raise HTTPException(status_code=401, detail="Email ou senha inválidos")
+        if not bcrypt.checkpw(usuario.senha.encode(), user["senha_hash"].encode()):
+            raise HTTPException(status_code=401, detail="Email ou senha inválidos")
+        return {"id": user["id"], "nome": user["nome"], "email": user["email"]}
+    finally:
+        cursor.close()
+        conn.close()
