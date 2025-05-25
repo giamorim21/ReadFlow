@@ -50,6 +50,10 @@ const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage }) => {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
+  const goToBookDetail = (livro) => {
+    navigate(`/livro?name=${encodeURIComponent(livro.titulo)}`, { state: livro }); // Navega passando o nome como query parameter
+  };
+
   return (
     <section className="carrossel-section">
       <h2 className="titulo-estilizado">{titulo}</h2>
@@ -65,7 +69,7 @@ const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage }) => {
               <LivroCard
                 key={index}
                 livro={livro}
-                onClick={() => navigate(`/livro/${livro.id || index}`, { state: livro })}
+                onClick={() => goToBookDetail(livro)} // Chama a função para navegar
               />
             ))
           ) : notFoundMessage ? (
@@ -87,6 +91,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const navigate = useNavigate(); // Importe useNavigate aqui se você ainda não o fez
 
   const fetchLivros = async () => {
     try {

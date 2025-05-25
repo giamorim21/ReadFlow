@@ -17,7 +17,7 @@ const AppRoutes = () => {
       <Route path="/biblioteca" element={<Biblioteca />} />
       <Route path="/recomendacoes" element={<Recomendacoes />} />
       <Route path="/configuracoes" element={<Configuracoes />} />
-      <Route path="/livro/:id" element={<DetalheLivro />} />
+      <Route path="/livro" element={<DetalheLivro />} /> {/* Mudança na rota */}
     </Routes>
   );
 };

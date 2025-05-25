@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom'; // Removed useParams
 import { FaBookmark } from 'react-icons/fa';
 import Estrelas from '../components/Estrelas';
 import MarcadorStatus from '../components/MarcadorStatus';
@@ -7,40 +7,45 @@ import ReviewItem from '../components/ReviewItem';
 import '../css/DetalheLivro.css';
 
 const DetalheLivro = () => {
-  const { id } = useParams();
+  const location = useLocation(); // Obtenha o objeto location
   const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const bookName = searchParams.get('name'); // Obtenha o nome do livro do query parameter
 
   const [livro, setLivro] = useState(null);
   const [status, setStatus] = useState('');
   const [avaliacao, setAvaliacao] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const resposta = {
-      id,
-      titulo: 'O Pequeno Príncipe',
-      autor: 'Antoine de Saint-Exupéry',
-      genero: 'Fábula',
-      ano_lancamento: 1943,
-      quantidade_paginas: 96,
-      editora: 'Reynal & Hitchcock',
-      sinopse: 'Um clássico da literatura que fala sobre amor, amizade e a essência da vida.',
-      imagem: 'https://m.media-amazon.com/images/I/71sBtM3Yi5L.jpg',
-      media: 4.3,
-      reviews: [
-        { usuario: 'Ana', nota: 5, comentario: 'Maravilhoso!' },
-        { usuario: 'Lucas', nota: 4, comentario: 'Muito bom, mas esperava mais do final.' },
-      ],
-      recomendados: [
-        { id: 1, titulo: 'A Menina que Roubava Livros', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
-        { id: 2, titulo: 'O Alquimista', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
-        { id: 3, titulo: 'As Aventuras de Tom Sawyer', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
-        { id: 4, titulo: 'Dom Casmurro', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
-        { id: 5, titulo: 'O Mundo de Sofia', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
-        { id: 6, titulo: 'O Morro dos Ventos Uivantes', imagem: 'https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg' },
-      ],
+    const fetchLivroDetalhe = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`http://localhost:8000/google-books/detail/name?name=${encodeURIComponent(bookName)}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(`Erro ao buscar detalhes do livro: ${response.status} - ${errorData.detail}`);
+          return;
+        }
+        const data = await response.json();
+        setLivro(data);
+      } catch (error) {
+        setError('Erro inesperado ao buscar detalhes do livro.');
+        console.error('Erro na requisição:', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    setLivro(resposta);
-  }, [id]);
+
+    if (bookName) {
+      fetchLivroDetalhe();
+    } else {
+      setError("Nome do livro não fornecido.");
+      setLoading(false);
+    }
+  }, [bookName]);
 
   const handleAvaliacao = (nota) => {
     setAvaliacao(nota);
@@ -50,7 +55,9 @@ const DetalheLivro = () => {
     setStatus(prev => prev === novoStatus ? '' : novoStatus);
   };
 
-  if (!livro) return <p>Carregando...</p>;
+  if (loading) return <p>Carregando detalhes do livro...</p>;
+  if (error) return <p className="erro-carregamento">{error}</p>;
+  if (!livro) return <p>Livro não encontrado.</p>;
 
   return (
     <div className="container-detalhe">
@@ -73,7 +80,7 @@ const DetalheLivro = () => {
           <p><strong>Avaliação Média:</strong></p>
           <div className="avaliacao-media">
             <Estrelas nota={Math.floor(livro.media)} />
-            <span className="nota-media">{livro.media.toFixed(1)}</span>
+            <span className="nota-media">{livro.media ? livro.media.toFixed(1) : 'N/A'}</span>
           </div>
         </div>
 
@@ -108,12 +115,14 @@ const DetalheLivro = () => {
         </div>
       </div>
 
-      <div className="ultimas-reviews">
-        <h3>Últimas Reviews</h3>
-        {livro.reviews.map((review, i) => (
-          <ReviewItem key={i} review={review} />
-        ))}
-      </div>
+      {livro.reviews && (
+        <div className="ultimas-reviews">
+          <h3>Últimas Reviews</h3>
+          {livro.reviews.map((review, i) => (
+            <ReviewItem key={i} review={review} />
+          ))}
+        </div>
+      )}
 
       {livro.recomendados && (
         <div className="recomendacoes">
