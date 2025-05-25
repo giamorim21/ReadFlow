@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Home.css';
+import { FaSearch } from 'react-icons/fa';
 
 const LivroCard = ({ livro, onClick }) => (
   <div className="livro-card" onClick={onClick}>
@@ -13,8 +14,7 @@ const LivroCard = ({ livro, onClick }) => (
   </div>
 );
 
-const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage }) => {
-  const navigate = useNavigate();
+const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage, onLivroClick }) => {
   const containerRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
@@ -50,10 +50,6 @@ const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage }) => {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
-  const goToBookDetail = (livro) => {
-    navigate(`/livro?name=${encodeURIComponent(livro.titulo)}`, { state: livro }); // Navega passando o nome como query parameter
-  };
-
   return (
     <section className="carrossel-section">
       <h2 className="titulo-estilizado">{titulo}</h2>
@@ -69,7 +65,7 @@ const Carrossel = ({ livros, titulo, idBase, loading, notFoundMessage }) => {
               <LivroCard
                 key={index}
                 livro={livro}
-                onClick={() => goToBookDetail(livro)} // Chama a função para navegar
+                onClick={() => onLivroClick(livro)}
               />
             ))
           ) : notFoundMessage ? (
@@ -91,13 +87,13 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
-  const navigate = useNavigate(); // Importe useNavigate aqui se você ainda não o fez
+  const navigate = useNavigate();
 
-  const fetchLivros = async () => {
+  async function fetchLivros() {
     try {
       setLoading(true);
       const [resRecomendados, resPopulares] = await Promise.all([
-        fetch('http://localhost:8000/google-books/search?query=ficção+melhores+livros'),
+        fetch('http://localhost:8000/google-books/search?query=best+seller'),
         fetch('http://localhost:8000/google-books/search?query=romance+best+seller'),
       ]);
 
@@ -113,7 +109,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -130,6 +126,10 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const goToBookDetail = (livro) => {
+    navigate(`/livro?name=${encodeURIComponent(livro.titulo)}`);
   };
 
   useEffect(() => {
@@ -157,9 +157,11 @@ const Home = () => {
             }
           }}
           className="search-home-input"
-          style={{ flexGrow: 1, padding: '12px', fontSize: '16px' }}
+          style={{ flexGrow: 1, padding: '10px 16px', fontSize: '1rem' }}
         />
-        <button type="submit" className="search-home-button">🔍</button>
+        <button type="submit" className="search-home-button">
+          <FaSearch />
+        </button>
       </form>
 
       {isSearching ? (
@@ -169,6 +171,7 @@ const Home = () => {
           idBase="pesquisa"
           loading={loading}
           notFoundMessage={`Esse livro não foi encontrado, mas aqui estão algumas opções parecidas! 📖`}
+          onLivroClick={goToBookDetail}
         />
       ) : (
         <>
@@ -177,12 +180,14 @@ const Home = () => {
             titulo="✨ Recomendados para você"
             idBase="recomendados"
             loading={loading}
+            onLivroClick={goToBookDetail}
           />
           <Carrossel
             livros={livrosPopulares}
             titulo="🔥 Livros Populares"
             idBase="populares"
             loading={loading}
+            onLivroClick={goToBookDetail}
           />
         </>
       )}

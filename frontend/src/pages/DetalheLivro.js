@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Removed useParams
-import { FaBookmark } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FaBookmark, FaSpinner } from 'react-icons/fa';
 import Estrelas from '../components/Estrelas';
 import MarcadorStatus from '../components/MarcadorStatus';
 import ReviewItem from '../components/ReviewItem';
 import '../css/DetalheLivro.css';
 
 const DetalheLivro = () => {
-  const location = useLocation(); // Obtenha o objeto location
+  const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const bookName = searchParams.get('name'); // Obtenha o nome do livro do query parameter
+  const bookName = searchParams.get('name');
 
   const [livro, setLivro] = useState(null);
   const [status, setStatus] = useState('');
   const [avaliacao, setAvaliacao] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [livrosRecomendadosPorGenero, setLivrosRecomendadosPorGenero] = useState([]);
 
   useEffect(() => {
     const fetchLivroDetalhe = async () => {
@@ -31,11 +32,31 @@ const DetalheLivro = () => {
         }
         const data = await response.json();
         setLivro(data);
+        if (data && data.genero) {
+          fetchLivrosRecomendadosPorGenero(data.genero);
+        }
       } catch (error) {
         setError('Erro inesperado ao buscar detalhes do livro.');
         console.error('Erro na requisição:', error);
       } finally {
         setLoading(false);
+      }
+    };
+
+    const fetchLivrosRecomendadosPorGenero = async (genero) => {
+      try {
+        const response = await fetch(`http://localhost:8000/google-books/search?query=${encodeURIComponent(genero)}&max_results=15`);
+        if (!response.ok) {
+          console.error('Erro ao buscar livros recomendados por gênero.');
+          return;
+        }
+        const data = await response.json();
+        const recommendations = data.filter(item => item.id !== livro?.id);
+        const shuffled = recommendations.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 5);
+        setLivrosRecomendadosPorGenero(selected);
+      } catch (error) {
+        console.error('Erro ao buscar livros recomendados por gênero:', error);
       }
     };
 
@@ -45,7 +66,7 @@ const DetalheLivro = () => {
       setError("Nome do livro não fornecido.");
       setLoading(false);
     }
-  }, [bookName]);
+  }, [bookName, livro?.id]);
 
   const handleAvaliacao = (nota) => {
     setAvaliacao(nota);
@@ -55,7 +76,16 @@ const DetalheLivro = () => {
     setStatus(prev => prev === novoStatus ? '' : novoStatus);
   };
 
-  if (loading) return <p>Carregando detalhes do livro...</p>;
+  const goToBookDetail = (livroRecomendado) => {
+    navigate(`/livro?name=${encodeURIComponent(livroRecomendado.titulo)}`);
+  };
+
+  if (loading) return (
+    <p className="carregando" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+      Carregando detalhes do livro...
+      <FaSpinner className="icone-carregando" spin size={24} />
+    </p>
+  );
   if (error) return <p className="erro-carregamento">{error}</p>;
   if (!livro) return <p>Livro não encontrado.</p>;
 
@@ -115,21 +145,19 @@ const DetalheLivro = () => {
         </div>
       </div>
 
-      {livro.reviews && (
-        <div className="ultimas-reviews">
-          <h3>Últimas Reviews</h3>
-          {livro.reviews.map((review, i) => (
-            <ReviewItem key={i} review={review} />
-          ))}
-        </div>
-      )}
+      <div className="ultimas-reviews">
+        <h3>Últimas Reviews</h3>
+        {livro.reviews && livro.reviews.map((review, i) => (
+          <ReviewItem key={i} review={review} />
+        ))}
+      </div>
 
-      {livro.recomendados && (
+      {livrosRecomendadosPorGenero.length > 0 && (
         <div className="recomendacoes">
-          <h3>Leitores desse livro recomendam</h3>
+          <h3>Leitores desse livro também se interessaram por</h3>
           <div className="grid-recomendacoes">
-            {livro.recomendados.map((rec) => (
-              <div key={rec.id} className="livro-card">
+            {livrosRecomendadosPorGenero.map((rec) => (
+              <div key={rec.id} className="livro-card" onClick={() => goToBookDetail(rec)} style={{ cursor: 'pointer' }}>
                 <img src={rec.imagem} alt={`Capa de ${rec.titulo}`} />
                 <h4>{rec.titulo}</h4>
               </div>

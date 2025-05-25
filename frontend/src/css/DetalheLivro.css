@@ -322,3 +322,17 @@
   margin-top: 0;
   line-height: 1.4;
 }
+
+.carregando {
+  font-size: 20px; /* Ajuste o tamanho da fonte */
+  color: var(--cor-principal); /* Escolha a cor desejada */
+  margin: 40px 0; /* Ajuste a margem acima e abaixo para espaçamento */
+  text-align: center; /* Centralize o texto */
+}
+
+.erro-carregamento {
+  font-size: 20px;
+  color: var(--cor-erro); /* Cor para mensagens de erro */
+  margin: 40px 0;
+  text-align: center;
+}

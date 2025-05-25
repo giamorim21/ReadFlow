@@ -22,7 +22,5 @@ async def get_book_by_id(book_id: str):
 
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
-        print(f"Status code da resposta: {response.status_code}")
-        print(f"Conteúdo da resposta: {response.text}")
         response.raise_for_status()
         return response.json()
