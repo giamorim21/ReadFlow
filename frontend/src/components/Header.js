@@ -17,13 +17,14 @@ const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
 
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const primeiroNome = usuario ? usuario.nome.split(" ")[0] : "";
+  const userEmail = usuario ? usuario.email : "";
+
   const isActive = (path) => location.pathname === path;
 
-  const userEmail = "usuario@email.com";
-
   const handleLogout = () => {
-    console.log("Usuário deslogado");
-    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
     navigate("/login");
   };
 
@@ -46,8 +47,6 @@ const Header = () => {
         <h1 className="logo">ReadFlow</h1>
       </div>
 
-      {/* Barra de busca removida */}
-
       <div className="left-icons">
         <Link to="/home" className={`icon ${isActive('/home') ? 'active' : ''}`}>
           <Home size={30} />
@@ -68,6 +67,12 @@ const Header = () => {
           ref={userMenuRef}
         >
           <User size={30} />
+          {/* Mostra o primeiro nome ao lado do ícone */}
+          {primeiroNome && (
+            <span className="user-firstname" style={{ marginLeft: 8, fontWeight: 500 }}>
+              {primeiroNome}
+            </span>
+          )}
           {showUserMenu && (
             <div className="user-menu">
               <p className="user-email">{userEmail}</p>

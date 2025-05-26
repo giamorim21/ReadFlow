@@ -1,15 +1,29 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/icon.png";
+import axios from "axios";
 import "../App.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Senha:", senha);
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
+        email,
+        senha,
+        nome: "", // O backend espera o campo nome, mas não é usado no login
+      });
+      // Salva os dados do usuário logado
+      localStorage.setItem("usuario", JSON.stringify(response.data));
+      // Redireciona para a home
+      navigate("/home");
+    } catch (error) {
+      alert("Email ou senha inválidos.");
+    }
   };
 
   return (
@@ -27,7 +41,7 @@ function Login() {
       </div>
 
       <div className="right-panel">
-      <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logo" />
         <div className="login-container">
           <h2>Login</h2>
           <form onSubmit={handleLogin} className="login-form">

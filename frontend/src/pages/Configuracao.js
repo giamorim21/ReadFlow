@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSave, FaSignOutAlt, FaTrash, FaKey } from 'react-icons/fa';
 import '../css/Configuracao.css';
 
 const Configuracao = () => {
+  // Recupera o usuário logado do localStorage
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Estados para nome e email, preenchidos com os dados do usuário logado
+  const [nome, setNome] = useState(usuario ? usuario.nome : "");
+  const [email, setEmail] = useState(usuario ? usuario.email : "");
   const [darkMode, setDarkMode] = useState(false);
   const [notificacoes, setNotificacoes] = useState(true);
   const [showSenhaModal, setShowSenhaModal] = useState(false);
@@ -10,8 +16,17 @@ const Configuracao = () => {
   const [novaSenha, setNovaSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
+  // Se o usuário mudar (ex: logout/login), atualiza os campos
+  useEffect(() => {
+    if (usuario) {
+      setNome(usuario.nome);
+      setEmail(usuario.email);
+    }
+  }, []);
+
   const salvarConfiguracoes = () => {
     alert('Configurações salvas!');
+    // Aqui você pode implementar a chamada para atualizar nome/email no backend
   };
 
   const salvarNovaSenha = () => {
@@ -30,7 +45,8 @@ const Configuracao = () => {
 
   const sairConta = () => {
     alert('Você saiu da conta.');
-    // Redirecionar para login, se necessário
+    localStorage.removeItem("usuario");
+    window.location.href = "/login";
   };
 
   const fecharModalSenha = () => {
@@ -50,12 +66,20 @@ const Configuracao = () => {
 
       <div className="config-group">
         <label>Alterar nome de usuário</label>
-        <input type="text" placeholder="Izabelle Silva" />
+        <input
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
       </div>
 
       <div className="config-group">
         <label>Email cadastrado:</label>
-        <input type="email" placeholder="izabelle@email.com" />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
 
       <div className="config-switch">
