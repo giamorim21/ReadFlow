@@ -7,8 +7,8 @@ const Configuracao = () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   // Estados para nome e email, preenchidos com os dados do usuário logado
-  const [nome, setNome] = useState(usuario ? usuario.nome : "");
-  const [email, setEmail] = useState(usuario ? usuario.email : "");
+  const [nome, setNome] = useState(usuario?.nome || "");
+  const [email, setEmail] = useState(usuario?.email || "");
   const [darkMode, setDarkMode] = useState(false);
   const [notificacoes, setNotificacoes] = useState(true);
   const [showSenhaModal, setShowSenhaModal] = useState(false);
@@ -22,7 +22,7 @@ const Configuracao = () => {
       setNome(usuario.nome);
       setEmail(usuario.email);
     }
-  }, []);
+  }, [usuario]); // Adicionado 'usuario' como dependência para reagir a mudanças no usuário
 
   const salvarConfiguracoes = () => {
     alert('Configurações salvas!');
@@ -65,28 +65,32 @@ const Configuracao = () => {
       <h2 className="section-title">Informações da Conta</h2>
 
       <div className="config-group">
-        <label>Alterar nome de usuário</label>
+        <label htmlFor="nome">Alterar nome de usuário</label>
         <input
           type="text"
+          id="nome" // Adicionado o id para associar ao label
           value={nome}
           onChange={(e) => setNome(e.target.value)}
         />
       </div>
 
       <div className="config-group">
-        <label>Email cadastrado:</label>
+        <label htmlFor="email">Email cadastrado:</label>
         <input
           type="email"
+          id="email" // Adicionado o id para associar ao label
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          readOnly // Adicionado readOnly para indicar que não pode ser alterado (conforme o texto do label)
         />
       </div>
 
       <div className="config-switch">
-        <label>Modo noturno</label>
+        <label htmlFor="darkMode">Modo noturno</label>
         <label className="switch">
           <input
             type="checkbox"
+            id="darkMode" // Adicionado o id para associar ao label
             checked={darkMode}
             onChange={() => setDarkMode(!darkMode)}
           />
@@ -95,10 +99,11 @@ const Configuracao = () => {
       </div>
 
       <div className="config-switch">
-        <label>Enviar notificações por email</label>
+        <label htmlFor="notificacoes">Enviar notificações por email</label>
         <label className="switch">
           <input
             type="checkbox"
+            id="notificacoes" // Adicionado o id para associar ao label
             checked={notificacoes}
             onChange={() => setNotificacoes(!notificacoes)}
           />
