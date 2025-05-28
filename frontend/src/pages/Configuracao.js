@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import { FaSave, FaSignOutAlt, FaTrash, FaKey } from 'react-icons/fa';
 import '../css/Configuracao.css';
 
@@ -22,24 +23,59 @@ const Configuracao = () => {
       setNome(usuario.nome);
       setEmail(usuario.email);
     }
-  }, [usuario]); // Adicionado 'usuario' como dependência para reagir a mudanças no usuário
+  }, []); // Adicionado 'usuario' como dependência para reagir a mudanças no usuário
 
-  const salvarConfiguracoes = () => {
-    alert('Configurações salvas!');
-    // Aqui você pode implementar a chamada para atualizar nome/email no backend
-  };
+  const salvarConfiguracoes = async () => {
+  if (!nome.trim()) {
+    alert("O nome de usuário não pode ser vazio.");
+    return;
+  }
+  try {
+    // Checa se já existe outro usuário com esse nome
+    const resp = await axios.get(`http://localhost:8000/usuario/check-nome`, {
+      params: { nome, id: usuario.id }
+    });
+    if (resp.data.exists) {
+      alert("Já existe um usuário com esse nome. Escolha outro.");
+      return;
+    }
 
-  const salvarNovaSenha = () => {
-    if (novaSenha === confirmarSenha) {
+    await axios.put(`http://localhost:8000/usuario/${usuario.id}`, {
+      nome,
+    });
+    localStorage.setItem("usuario", JSON.stringify({ ...usuario, nome }));
+    alert('Nome de usuário alterado com sucesso!');
+  } catch (error) {
+    alert(error.response?.data?.detail || "Erro ao salvar configurações.");
+  }
+};
+
+
+  const salvarNovaSenha = async () => {
+    if (novaSenha !== confirmarSenha) {
+      alert('As senhas não coincidem.');
+      return;
+    }
+    try {
+      await axios.put(`http://localhost:8000/usuario/${usuario.id}/senha`, {
+        nova_senha: novaSenha,
+      });
       alert('Senha alterada com sucesso!');
       fecharModalSenha();
-    } else {
-      alert('As senhas não coincidem.');
+    } catch (error) {
+      alert(error.response?.data?.detail || "Erro ao alterar senha.");
     }
   };
 
-  const apagarConta = () => {
-    alert('Conta apagada!');
+  const apagarConta = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/usuario/${usuario.id}`);
+      alert('Conta apagada!');
+      localStorage.removeItem("usuario");
+      window.location.href = "/login";
+    } catch (error) {
+      alert(error.response?.data?.detail || "Erro ao apagar conta.");
+    }
     fecharModalExcluir();
   };
 
