@@ -17,6 +17,21 @@ const Configuracao = () => {
   const [novaSenha, setNovaSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
+ useEffect(() => {
+  const savedDark = localStorage.getItem("modoNoturno");
+  if (savedDark) setDarkMode(savedDark === "true");
+}, []);
+
+useEffect(() => {
+  localStorage.setItem("modoNoturno", darkMode);
+  // Adiciona ou remove a classe no body
+  if (darkMode) {
+    document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
+  }
+}, [darkMode]);
+
   // Se o usuário mudar (ex: logout/login), atualiza os campos
   useEffect(() => {
     if (usuario) {
