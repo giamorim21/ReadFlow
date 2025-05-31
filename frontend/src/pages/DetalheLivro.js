@@ -32,6 +32,15 @@ const DetalheLivro = () => {
         }
         const data = await response.json();
         setLivro(data);
+
+        // Carrega status salvo na biblioteca, se houver
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
+        const biblioteca = JSON.parse(localStorage.getItem(`biblioteca_${usuario.id}`)) || [];
+        const livroSalvo = biblioteca.find(l => l.id === data.id);
+        if (livroSalvo) {
+          setStatus(livroSalvo.status);
+        }
+
         if (data && data.genero) {
           fetchLivrosRecomendadosPorGenero(data.genero);
         }
@@ -66,14 +75,34 @@ const DetalheLivro = () => {
       setError("Nome do livro não fornecido.");
       setLoading(false);
     }
-  }, [bookName, livro?.id]);
+    // eslint-disable-next-line
+  }, [bookName]);
 
   const handleAvaliacao = (nota) => {
     setAvaliacao(nota);
   };
 
+  // Salva/atualiza o livro na biblioteca do usuário ao marcar status
   const handleMarcador = (novoStatus) => {
-    setStatus(prev => prev === novoStatus ? '' : novoStatus);
+    const statusPadrao = novoStatus.toLowerCase();
+    setStatus(prev => prev === statusPadrao ? '' : statusPadrao);
+
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    let biblioteca = JSON.parse(localStorage.getItem(`biblioteca_${usuario.id}`)) || [];
+
+    const idx = biblioteca.findIndex(l => l.id === livro.id);
+    if (idx !== -1) {
+      biblioteca[idx].status = statusPadrao;
+    } else {
+      biblioteca.push({
+        id: livro.id,
+        titulo: livro.titulo,
+        imagem: livro.imagem,
+        status: statusPadrao,
+        nota: 0
+      });
+    }
+    localStorage.setItem(`biblioteca_${usuario.id}`, JSON.stringify(biblioteca));
   };
 
   const goToBookDetail = (livroRecomendado) => {
@@ -100,6 +129,11 @@ const DetalheLivro = () => {
 
         <div className="coluna-info">
           <h2 className="titulo">{livro.titulo}</h2>
+          {status && (
+            <span className={`status-badge status-${status.replace(' ', '-').toLowerCase()}`} style={{ marginLeft: 8, fontSize: 16 }}>
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </span>
+          )}
           <p><strong>Autor:</strong> {livro.autor}</p>
           <p><strong>Gênero:</strong> {livro.genero}</p>
           <p><strong>Ano de Lançamento:</strong> {livro.ano_lancamento}</p>
@@ -123,7 +157,7 @@ const DetalheLivro = () => {
               {['Quero ler', 'Lendo', 'Lido', 'Abandonado'].map((item) => (
                 <MarcadorStatus
                   key={item}
-                  ativo={status === item}
+                  ativo={status === item.toLowerCase()}
                   onClick={() => handleMarcador(item)}
                 >
                   <FaBookmark className="icone-bookmark" />

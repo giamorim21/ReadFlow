@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../css/Biblioteca.css';
 import placeholderImage from '../assets/livro.jpeg';
-import Estrelas from '../components/Estrelas'; // ajuste o caminho se necessário
+import Estrelas from '../components/Estrelas';
 
 const STATUS_OPCOES = [
   { label: 'Todos', valor: 'todos' },
@@ -13,29 +13,29 @@ const STATUS_OPCOES = [
 ];
 
 const Biblioteca = () => {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
 
-  const [livros, setLivros] = useState([
-    { id: 101, titulo: 'O Pequeno Príncipe', imagem: placeholderImage, status: 'lido', nota: 5 },
-    { id: 102, titulo: 'A Menina que Roubava Livros', imagem: placeholderImage, status: 'lendo', nota: 4 },
-    { id: 103, titulo: 'Harry Potter e a Pedra Filosofal', imagem: placeholderImage, status: 'quero ler', nota: 0 },
-    { id: 104, titulo: 'Dom Casmurro', imagem: placeholderImage, status: 'lido', nota: 3 },
-    { id: 105, titulo: '1984', imagem: placeholderImage, status: 'abandonado', nota: 2 },
-    { id: 106, titulo: 'O Senhor dos Anéis', imagem: placeholderImage, status: 'quero ler', nota: 0 },
-    { id: 107, titulo: 'A Revolução dos Bichos', imagem: placeholderImage, status: 'lido', nota: 4 },
-    { id: 108, titulo: 'O Hobbit', imagem: placeholderImage, status: 'lendo', nota: 5 },
-    { id: 120, titulo: 'It: A Coisa', imagem: placeholderImage, status: 'abandonado', nota: 1 },
-  ]);
-
+  const [livros, setLivros] = useState([]);
   const [filtroStatus, setFiltroStatus] = useState('todos');
 
+  // Carrega a biblioteca do localStorage ao montar
+  useEffect(() => {
+    const biblioteca = JSON.parse(localStorage.getItem(`biblioteca_${usuario.id}`)) || [];
+    setLivros(biblioteca);
+  }, [usuario.id]);
+
+  // Atualiza o localStorage ao excluir livro
+  const excluirLivro = (id) => {
+    const novaLista = livros.filter(livro => livro.id !== id);
+    setLivros(novaLista);
+    localStorage.setItem(`biblioteca_${usuario.id}`, JSON.stringify(novaLista));
+  };
+
+  // Filtro funciona corretamente com status em minúsculo
   const livrosFiltrados = filtroStatus === 'todos'
     ? livros
     : livros.filter(livro => livro.status === filtroStatus);
-
-  const excluirLivro = (id) => {
-    setLivros(livros.filter(livro => livro.id !== id));
-  };
 
   return (
     <main className="biblioteca-container">
@@ -54,25 +54,28 @@ const Biblioteca = () => {
       </div>
 
       <div className="livros-galeria">
-        {livrosFiltrados.length === 0 && (
+        {livros.length === 0 && (
+          <p className="msg-sem-livros">
+            Sua biblioteca está vazia. Adicione livros marcando-os como "Quero ler", "Lendo" ou "Lido"!
+          </p>
+        )}
+        {livros.length > 0 && livrosFiltrados.length === 0 && (
           <p className="msg-sem-livros">Nenhum livro encontrado para esse filtro.</p>
         )}
         {livrosFiltrados.map((livro) => (
           <div key={livro.id} className="livro-card">
             <img
-              src={livro.imagem}
+              src={livro.imagem || placeholderImage}
               alt={`Capa do livro ${livro.titulo}`}
-              onClick={() => navigate(`/livro/${livro.id}`, { state: livro })}
+              onClick={() => navigate(`/livro?name=${encodeURIComponent(livro.titulo)}`)}
             />
             <h4 className="livro-titulo">{livro.titulo}</h4>
             <span className={`status-badge status-${livro.status.replace(' ', '-')}`}>
-              {livro.status}
+              {livro.status.charAt(0).toUpperCase() + livro.status.slice(1)}
             </span>
-
             <div className="estrelas-avaliacao">
               <Estrelas nota={livro.nota} />
             </div>
-
             <button
               className="btn-excluir"
               onClick={() => excluirLivro(livro.id)}
